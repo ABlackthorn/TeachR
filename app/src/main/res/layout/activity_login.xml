@@ -6,16 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.teachr.teachr.LoginActivity">
 
-    <EditText
-        android:id="@+id/identifierEditText"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="189dp"
-        android:hint="@string/placeholder_username"
+        android:layout_marginTop="100dp"
+        android:src="@mipmap/teachr_logo_extended" />
+
+    <EditText
+        android:id="@+id/identifierEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:hint="@string/placeholder_username"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -24,7 +34,9 @@
         android:layout_alignEnd="@+id/identifierEditText"
         android:layout_below="@+id/identifierEditText"
         android:layout_marginTop="12dp"
-        android:hint="@string/placeholdeR_password"
+        android:autofillHints="@string/placeholder_username"
+        android:hint="@string/placeholder_password"
+        android:textAlignment="center"
         android:ems="10"
         android:inputType="textPassword" />
 
@@ -35,5 +47,32 @@
         android:layout_below="@+id/passwordEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
+        android:background="@drawable/primary_button"
+        android:textColor="@color/white"
+        android:maxWidth="180dp"
+        android:minWidth="180dp"
         android:text="@string/login_button" />
+
+    <TextView
+        android:id="@+id/orTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/or" />
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/orTextView"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/secondary_button"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimary"
+        android:maxWidth="180dp"
+        android:minWidth="180dp"
+        android:text="@string/signup_button" />
 </RelativeLayout>

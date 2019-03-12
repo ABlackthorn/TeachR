@@ -2,9 +2,12 @@
     <string name="app_name">TeachR</string>
 
     <string name="placeholder_username">Identifiant</string>
-    <string name="placeholdeR_password">Mot de passe</string>
+    <string name="placeholder_password">Mot de passe</string>
 
     <string name="login_button">Connexion</string>
+    <string name="signup_button">S\'inscrire</string>
 
     <string name="enter_details_error">Veuillez entrer vos informations.</string>
+
+    <string name="or">ou</string>
 </resources>

@@ -1,32 +1,26 @@
 package com.teachr.teachr
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_list.view.*
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.AuthResult
-import com.google.android.gms.tasks.Task
-import android.support.annotation.NonNull
-import com.google.android.gms.tasks.OnCompleteListener
-import android.R.attr.password
+import android.app.ActivityOptions
 import android.content.Intent
-import android.support.v4.app.FragmentActivity
 import android.util.Log
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar()?.hide(); // hide the title bar
+        //getSupportActionBar()?.hide(); // hide the title bar
+        //actionBar.hide()
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_login)
@@ -61,6 +55,13 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this@LoginActivity, R.string.enter_details_error, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        val signupButton = findViewById<Button>(R.id.signupButton);
+        signupButton.setOnClickListener{
+            var intent : Intent = Intent(this, ListActivity::class.java);
+            startActivity(intent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
     }
