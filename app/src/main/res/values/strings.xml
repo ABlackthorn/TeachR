@@ -7,6 +7,8 @@
     <string name="login_button">Connexion</string>
     <string name="signup_button">S\'inscrire</string>
 
+    <string name="cancel_button">Annuler</string>
+
     <string name="enter_details_error">Veuillez entrer vos informations.</string>
 
     <string name="or">ou</string>
