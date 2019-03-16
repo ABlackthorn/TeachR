@@ -1,3 +1,6 @@
 package com.teachr.teachr
 
-private lateinit var recyclerView: RecyclerView
+data class Subject(val id: Int, val name: String) {
+
+}
+
