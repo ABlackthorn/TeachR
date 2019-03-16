@@ -16,7 +16,7 @@
         android:src="@mipmap/teachr_logo_extended" />
 
     <EditText
-        android:id="@+id/identifierEditText"
+        android:id="@+id/matiereEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
@@ -31,8 +31,8 @@
         android:id="@+id/passwordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/identifierEditText"
-        android:layout_below="@+id/identifierEditText"
+        android:layout_alignEnd="@+id/matiereEditText"
+        android:layout_below="@+id/matiereEditText"
         android:layout_marginTop="12dp"
         android:autofillHints="@string/placeholder_username"
         android:hint="@string/placeholder_password"

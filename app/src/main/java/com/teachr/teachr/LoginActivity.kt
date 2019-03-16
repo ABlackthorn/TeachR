@@ -1,7 +1,6 @@
 package com.teachr.teachr
 
 import android.app.Activity
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
@@ -26,7 +25,7 @@ class LoginActivity : Activity() {
         setContentView(R.layout.activity_login)
         val mAuth:FirebaseAuth = FirebaseAuth.getInstance()
 
-        val identifierEditText = findViewById<EditText>(R.id.identifierEditText)
+        val identifierEditText = findViewById<EditText>(R.id.matiereEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         val loginButton = findViewById<Button>(R.id.loginButton)
 

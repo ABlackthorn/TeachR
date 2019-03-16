@@ -9,7 +9,18 @@
         android:roundIcon="@mipmap/teachr_logo_rounded"
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme">
-        <activity android:name=".SignupActivity"></activity>
+        <activity
+            android:name=".durationOfferActivity"
+            android:label="@string/title_activity_duration_offer"></activity>
+        <activity android:name=".PriceOfferActivity" />
+        <activity
+            android:name=".AdressOfferActivity"
+            android:label="@string/title_activity_adress_offer" />
+        <activity android:name=".matiereOfferActivity" />
+        <activity
+            android:name=".LastStepOfferActivity"
+            android:label="@string/title_activity_last_step_offer" />
+        <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

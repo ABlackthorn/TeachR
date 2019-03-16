@@ -12,4 +12,12 @@
     <string name="enter_details_error">Veuillez entrer vos informations.</string>
 
     <string name="or">ou</string>
+    <string name="title_activity_last_step_offer">LastStepOfferActivity</string>
+
+    <string name="placeholder_matiere">Matière</string>
+    <string name="placeholder_price">Prix</string>
+    <string name="placeholder_adress">Adresse</string>
+    <string name="placeholder_duration">Durée</string>
+    <string name="title_activity_adress_offer">AdressOfferActivity</string>
+    <string name="title_activity_duration_offer">durationOfferActivity</string>
 </resources>
