@@ -39,7 +39,6 @@
                 android:id="@+id/identifierEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:ems="10"
                 android:hint="@string/placeholder_username"
@@ -50,79 +49,89 @@
                 android:id="@+id/passwordEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/identifierEditText"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:autofillHints="@string/placeholder_username"
                 android:ems="10"
                 android:hint="@string/placeholder_password"
                 android:inputType="textPassword"
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/passwordEditText2"
+                android:id="@+id/passwordRepeatEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordEditText"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:autofillHints="@string/placeholder_username"
                 android:ems="10"
-                android:hint="@string/placeholder_password"
+                android:hint="@string/placeholder_password_repeat"
                 android:inputType="textPassword"
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/passwordEditText3"
+                android:id="@+id/firstnameEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordEditText2"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:autofillHints="@string/placeholder_username"
                 android:ems="10"
-                android:hint="@string/placeholder_password"
-                android:inputType="textPassword"
+                android:hint="@string/placeholder_firstname"
+                android:inputType="text"
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/passwordEditText4"
+                android:id="@+id/lastnameEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordEditText3"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:autofillHints="@string/placeholder_username"
                 android:ems="10"
-                android:hint="@string/placeholder_password"
-                android:inputType="textPassword"
+                android:hint="@string/placeholder_lastname"
+                android:inputType="text"
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/passwordEditText5"
+                android:id="@+id/addressEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordEditText4"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:autofillHints="@string/placeholder_username"
                 android:ems="10"
-                android:hint="@string/placeholder_password"
-                android:inputType="textPassword"
+                android:hint="@string/placeholder_address"
+                android:inputType="text"
                 android:textAlignment="center" />
 
-            <EditText
-                android:id="@+id/passwordEditText6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordEditText5"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
-                android:autofillHints="@string/placeholder_username"
-                android:ems="10"
-                android:hint="@string/placeholder_password"
-                android:inputType="textPassword"
-                android:textAlignment="center" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/studentTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/student" />
+
+                    <Switch
+                        android:id="@+id/switch3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"/>
+
+                    <TextView
+                        android:id="@+id/teacherTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/teacher" />
+
+                </TableRow>
+            </TableLayout>
+
         </LinearLayout>
     </ScrollView>
 

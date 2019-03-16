@@ -3,6 +3,10 @@
 
     <string name="placeholder_username">Identifiant</string>
     <string name="placeholder_password">Mot de passe</string>
+    <string name="placeholder_password_repeat">Confirmer mdp</string>
+    <string name="placeholder_firstname">Prénom</string>
+    <string name="placeholder_lastname">Nom</string>
+    <string name="placeholder_address">Adresse</string>
 
     <string name="login_button">Connexion</string>
     <string name="signup_button">S\'inscrire</string>
@@ -24,4 +28,7 @@
     <string name="placeholder_duration">Durée</string>
     <string name="title_activity_adress_offer">AdressOfferActivity</string>
     <string name="title_activity_duration_offer">durationOfferActivity</string>
+
+    <string name="student">Étudiant</string>
+    <string name="teacher">Enseignant</string>
 </resources>
