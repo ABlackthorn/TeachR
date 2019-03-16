@@ -1,7 +1,6 @@
 package com.teachr.teachr
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +12,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import java.time.LocalDateTime
+import android.widget.Button
+import com.google.firebase.auth.FirebaseAuth
 
 
 class ListActivity : Activity() {
@@ -68,6 +69,12 @@ class ListActivity : Activity() {
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
 
+        }
+        val mAuth = FirebaseAuth.getInstance()
+        findViewById<Button>(R.id.button).setOnClickListener{
+            mAuth.signOut()
+            val intent: Intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

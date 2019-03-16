@@ -3,13 +3,22 @@
 
     <string name="placeholder_username">Identifiant</string>
     <string name="placeholder_password">Mot de passe</string>
+    <string name="placeholder_password_repeat">Confirmer mdp</string>
+    <string name="placeholder_firstname">Prénom</string>
+    <string name="placeholder_lastname">Nom</string>
+    <string name="placeholder_address">Adresse</string>
 
     <string name="login_button">Connexion</string>
     <string name="signup_button">S\'inscrire</string>
 
     <string name="cancel_button">Annuler</string>
 
-    <string name="enter_details_error">Veuillez entrer vos informations.</string>
+    <string name="authentication_success">Authentification réussie</string>
+    <string name="authentication_failure">Erreur d\'authentification</string>
+    <string name="enter_details_error">Veuillez entrer vos informations</string>
+    <string name="verification_message_sent">Un e-mail de vérification a été envoyé à votre messagerie</string>
+    <string name="signup_failed">Erreur lors de l\'inscription</string>
+    <string name="passwords_mismatch">Les mots de passe entrés ne sont pas identiques</string>
 
     <string name="matiere">Matière</string>
     <string name="date">Date</string>
@@ -21,4 +30,15 @@
     <string name="filter">Filtrer</string>
 
     <string name="or">ou</string>
+    <string name="title_activity_last_step_offer">LastStepOfferActivity</string>
+
+    <string name="placeholder_matiere">Matière</string>
+    <string name="placeholder_price">Prix</string>
+    <string name="placeholder_adress">Adresse</string>
+    <string name="placeholder_duration">Durée</string>
+    <string name="title_activity_adress_offer">AdressOfferActivity</string>
+    <string name="title_activity_duration_offer">durationOfferActivity</string>
+
+    <string name="student">Étudiant</string>
+    <string name="teacher">Enseignant</string>
 </resources>

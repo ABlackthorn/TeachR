@@ -1,68 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.teachr.teachr.LoginActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:src="@mipmap/teachr_logo_extended" />
+        android:gravity="center" >
 
-    <EditText
-        android:id="@+id/identifierEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:ems="10"
-        android:hint="@string/placeholder_username"
-        android:inputType="textEmailAddress"
-        android:textAlignment="center" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:src="@mipmap/teachr_logo_extended" />
 
-    <EditText
-        android:id="@+id/passwordEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/identifierEditText"
-        android:layout_below="@+id/identifierEditText"
-        android:layout_marginTop="12dp"
-        android:autofillHints="@string/placeholder_username"
-        android:hint="@string/placeholder_password"
-        android:textAlignment="center"
-        android:ems="10"
-        android:inputType="textPassword" />
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/signupButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordEditText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:background="@drawable/primary_button"
-        android:textColor="@color/white"
-        android:maxWidth="180dp"
-        android:minWidth="180dp"
-        android:text="@string/signup_button" />
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+            <EditText
+                android:id="@+id/identifierEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:hint="@string/placeholder_username"
+                android:inputType="textEmailAddress"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="@string/placeholder_password"
+                android:inputType="textPassword"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/passwordRepeatEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="@string/placeholder_password_repeat"
+                android:inputType="textPassword"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/firstnameEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="@string/placeholder_firstname"
+                android:inputType="text"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/lastnameEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="@string/placeholder_lastname"
+                android:inputType="text"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/addressEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="@string/placeholder_address"
+                android:inputType="text"
+                android:textAlignment="center" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/studentTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/student" />
+
+                    <Switch
+                        android:id="@+id/typeSwitch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"/>
+
+                    <TextView
+                        android:id="@+id/teacherTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/teacher" />
+
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signupButton"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/secondary_button"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorPrimary"
-        android:maxWidth="180dp"
-        android:minWidth="180dp"
-        android:text="@string/cancel_button" />
+        android:layout_alignParentBottom="true"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/primary_button"
+            android:maxWidth="180dp"
+            android:minWidth="180dp"
+            android:text="@string/signup_button"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/signupButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/secondary_button"
+            android:maxWidth="180dp"
+            android:minWidth="180dp"
+            android:text="@string/cancel_button"
+            android:textColor="@color/colorPrimary" />
+    </RelativeLayout>
 </RelativeLayout>
