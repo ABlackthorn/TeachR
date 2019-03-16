@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "435307443386",
+    "firebase_url": "https://teachr-aad2a.firebaseio.com",
+    "project_id": "teachr-aad2a",
+    "storage_bucket": "teachr-aad2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435307443386:android:ab7b70bd0310ff21",
+        "android_client_info": {
+          "package_name": "com.teachr.teachr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435307443386-4g89nvenesgp1660rasd5jclfadn5bnh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teachr.teachr",
+            "certificate_hash": "d4d9866c72ede6a21c108bac0b29a5599675f1bf"
+          }
+        },
+        {
+          "client_id": "435307443386-aop0g2ssi91ars0ru11nb5e7m73jo3od.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjuuBjodzGl1mQ3qXl81xdm78H2Hptq5s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435307443386-aop0g2ssi91ars0ru11nb5e7m73jo3od.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
