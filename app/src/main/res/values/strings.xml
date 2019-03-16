@@ -11,5 +11,14 @@
 
     <string name="enter_details_error">Veuillez entrer vos informations.</string>
 
+    <string name="matiere">Matière</string>
+    <string name="date">Date</string>
+    <string name="duration">Durée</string>
+    <string name="address">Adresse</string>
+    <string name="price">Prix</string>
+    <string name="name">Nom</string>
+
+    <string name="filter">Filtrer</string>
+
     <string name="or">ou</string>
 </resources>
