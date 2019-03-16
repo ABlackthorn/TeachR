@@ -4,13 +4,10 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
 import com.google.firebase.auth.FirebaseAuth
-import android.widget.Toast
 import android.app.ActivityOptions
 import android.content.Intent
-import android.util.Log
+import android.widget.*
 
 
 class LoginActivity : Activity() {
@@ -34,19 +31,14 @@ class LoginActivity : Activity() {
                 mAuth.signInWithEmailAndPassword(identifierEditText.text.toString(), passwordEditText.text.toString())
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.i("LOGIN", "signInWithEmail:success")
                                 val user = mAuth.getCurrentUser()
-                                Toast.makeText(this@LoginActivity, "Successful Authentication",
+                                Toast.makeText(this@LoginActivity, R.string.authentication_success,
                                         Toast.LENGTH_SHORT).show()
                                 var intent: Intent = Intent(this, ListActivity::class.java)
                                 startActivity(intent)
                             } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("LOGIN", "signInWithEmail:failure", task.exception)
-                                Toast.makeText(this@LoginActivity, "Authentication failed.",
+                                Toast.makeText(this@LoginActivity, R.string.authentication_failure,
                                         Toast.LENGTH_SHORT).show()
-                                //updateUI(null)
                             }
 
                             // ...
@@ -58,7 +50,7 @@ class LoginActivity : Activity() {
 
         val signupButton = findViewById<Button>(R.id.signupButton);
         signupButton.setOnClickListener{
-            var intent : Intent = Intent(this, ListActivity::class.java);
+            var intent : Intent = Intent(this, SignupActivity::class.java);
             startActivity(intent,
                     ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }

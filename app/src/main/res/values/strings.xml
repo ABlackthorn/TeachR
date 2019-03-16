@@ -9,7 +9,11 @@
 
     <string name="cancel_button">Annuler</string>
 
-    <string name="enter_details_error">Veuillez entrer vos informations.</string>
+    <string name="authentication_success">Authentification réussie</string>
+    <string name="authentication_failure">Erreur d\'authentification</string>
+    <string name="enter_details_error">Veuillez entrer vos informations</string>
+    <string name="verification_message_sent">Un e-mail de vérification a été envoyé à votre messagerie</string>
+    <string name="signup_failed">Erreur lors de l\'inscription</string>
 
     <string name="or">ou</string>
     <string name="title_activity_last_step_offer">LastStepOfferActivity</string>
