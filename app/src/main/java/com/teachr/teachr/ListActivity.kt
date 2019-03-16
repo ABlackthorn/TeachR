@@ -1,22 +1,24 @@
 package com.teachr.teachr
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Window
 import android.view.WindowManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
-import java.time.LocalDateTime
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import values.Statics
 
 
 class ListActivity : Activity() {
-
+    private lateinit var _db: DatabaseReference
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var linearLayoutManager: RecyclerView.LayoutManager
@@ -39,30 +41,23 @@ class ListActivity : Activity() {
             startActivity(intent)
         }
 
-       list.add(Entry(1, "13/02", 2, 10, 24, 20,
-            Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
-        list.add(Entry(1, "13/02", 2, 10, 24, 20,
-                Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
-        list.add(Entry(1, "13/02", 2, 10, 24, 20,
-                Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
-        list.add(Entry(1, "13/02", 2, 10, 24, 20,
-                Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
+        _db = FirebaseDatabase.getInstance().reference
 
-        /*
+        list.add(Entry("", "13/02", 2, Geopoint(45.494354, -73.561818), 24,
+            Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
+
         val filterButton = findViewById<Button>(R.id.filterButton);
             filterButton.setOnClickListener{
-                var intent : Intent = Intent(this, ListActivity::class.java);
-                startActivity(intent,
-                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
-            }
-            val fab: View = findViewById(R.id.fab)
-            fab.setOnClickListener { view ->
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show()
+                //var intent : Intent = Intent(this, ListActivity::class.java);
+                //startActivity(intent,
+                        //ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
             }
 
-    */
+       /* val fab: View = findViewById<FloatingActionButton>(R.id.fab)
+            fab.setOnClickListener { view ->;
+                addEntry()
+            }
+*/
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         viewAdapter = RecyclerAdapter(this, list)
 
@@ -83,4 +78,17 @@ class ListActivity : Activity() {
         super.onStart()
     }
 
+    private fun addEntry() {
+        // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+        var entry = Entry("", "13/02", 2, Geopoint(45.494354, -73.561818), 24,
+                Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1);
+        //Get the object id for the new task from the Firebase Database
+        val newEntry = _db.child(Statics.FIREBASE_ENTRY).push()
+        entry.id = newEntry.key
+
+        //Set the values for new task in the firebase using the footer form
+        newEntry.setValue(entry)
+        list.add(entry)
+        Toast.makeText(this, "Task added to the list successfully" + entry.id, Toast.LENGTH_SHORT).show()
+    }
 }

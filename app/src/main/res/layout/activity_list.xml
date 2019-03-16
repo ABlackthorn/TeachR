@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <Button
         android:layout_height="20dp"
         android:id="@+id/button"
@@ -55,18 +54,37 @@
             android:layout_height="match_parent"
             xmlns:android="http://schemas.android.com/apk/res/android">
         </android.support.v7.widget.RecyclerView>
-<!--
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="16dp"
-            android:src="@mipmap/teachr_logo_rounded"
-            app:layout_anchor="@id/recyclerView"
-            app:layout_anchorGravity="bottom|right|end"/>
--->
-    </RelativeLayout>
 
+    </RelativeLayout>
+    <!--
+   <android.support.design.widget.CoordinatorLayout
+       xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+ <android.support.design.widget.FloatingActionButton
+           xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           android:id="@+id/fab"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="bottom|right"
+           android:layout_margin="16dp"
+           android:src="@mipmap/teachr_logo_rounded"
+           app:layout_anchor="@id/recyclerView"
+           app:layout_anchorGravity="bottom|right|end"/>
+       <android.support.design.widget.FloatingActionButton
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           android:id="@+id/fab"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_margin="16dp"
+           android:src="@drawable/ic_add_black_24dp"
+           app:backgroundTint="@color/colorPrimaryDark"
+           app:borderWidth="0dp" />
+   </android.support.design.widget.CoordinatorLayout>
+
+-->
 </RelativeLayout>
 

@@ -32,7 +32,7 @@ class MainActivity : Activity() {
             var intent:Intent = Intent(this, ListActivity::class.java)
             startActivity(intent)
         } else {
-            var intent:Intent = Intent(this, LoginActivity::class.java)
+            var intent:Intent = Intent(this, ListActivity::class.java)
             startActivity(intent)
         }
     }

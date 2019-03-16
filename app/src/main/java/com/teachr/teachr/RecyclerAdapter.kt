@@ -31,14 +31,12 @@ class RecyclerAdapter(ctx: Context, private val list: List<Entry>) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: RecyclerAdapter.MyViewHolder, position: Int) {
-
-        holder.course.setText(list[position].subject.name)
-        holder.address.setText(list[position].latitude.toString())
-        holder.duration.setText(list[position].duration.toString())
-        holder.date.setText(list[position].date)
-        holder.name.setText(list[position].user)
-        holder.price.setText(list[position].price.toString())
-
+        holder.course.text = list[position].subject.name
+        holder.address.text = list[position].geopoint.toString()
+        holder.duration.text = list[position].duration.toString()
+        holder.date.text = list[position].date
+        holder.name.text = list[position].user
+        holder.price.text = list[position].price.toString()
     }
 
     override fun getItemCount(): Int {
