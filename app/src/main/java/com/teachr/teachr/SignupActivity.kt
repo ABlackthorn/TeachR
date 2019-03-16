@@ -8,6 +8,7 @@ import android.content.Intent
 import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.Switch
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -26,9 +27,24 @@ class SignupActivity : Activity() {
 
         val signupButton = findViewById<Button>(R.id.signupButton)
         signupButton.setOnClickListener{
-            val email = findViewById<EditText>(R.id.identifierEditText)
-            val password = findViewById<EditText>(R.id.passwordEditText)
-            createAccount(email.text.toString(), password.text.toString())
+
+            //TODO: Implement form logic
+
+            val email = findViewById<EditText>(R.id.identifierEditText).text.toString()
+            val password = findViewById<EditText>(R.id.passwordEditText).text.toString()
+            val passwordRepeat = findViewById<EditText>(R.id.passwordRepeatEditText).text.toString()
+            val firstname = findViewById<EditText>(R.id.firstnameEditText).text.toString()
+            val lastname = findViewById<EditText>(R.id.lastnameEditText).text.toString()
+            val address = findViewById<EditText>(R.id.addressEditText).text.toString()
+            val type = findViewById<Switch>(R.id.typeSwitch).isActivated
+
+            if(password != passwordRepeat){
+                Toast.makeText(this@SignupActivity, getString(R.string.passwords_mismatch), Toast.LENGTH_LONG).show()
+            } else if(email.isEmpty() || password.isEmpty() || passwordRepeat.isEmpty() || firstname.isEmpty() || lastname.isEmpty() || address.isEmpty()){
+                Toast.makeText(this@SignupActivity, getString(R.string.enter_details_error), Toast.LENGTH_LONG).show()
+            } else {
+                createAccount(email, password)
+            }
         }
 
         findViewById<Button>(R.id.cancelButton).setOnClickListener {

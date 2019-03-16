@@ -18,6 +18,7 @@
     <string name="enter_details_error">Veuillez entrer vos informations</string>
     <string name="verification_message_sent">Un e-mail de vérification a été envoyé à votre messagerie</string>
     <string name="signup_failed">Erreur lors de l\'inscription</string>
+    <string name="passwords_mismatch">Les mots de passe entrés ne sont pas identiques</string>
 
     <string name="or">ou</string>
     <string name="title_activity_last_step_offer">LastStepOfferActivity</string>
