@@ -1,44 +1,75 @@
 package com.teachr.teachr
 
 import android.app.Activity
+import android.app.ActivityOptions
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Window
 import android.view.WindowManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.Button
+import java.time.LocalDateTime
+
 
 class ListActivity : Activity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var linearLayoutManager: RecyclerView.LayoutManager
+
+    // private val myDataset = mutableListOf<Subject>()
+    val list = ArrayList<Entry>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         //getSupportActionBar()?.hide(); // hide the title bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_list)
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = MyAdapter(myDataset)
+        list.add(Entry(1, "13/02", 2, 10, 24, 20,
+                Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
+        list.add(Entry(1, "13/02", 2, 10, 24, 20,
+                Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
+        list.add(Entry(1, "13/02", 2, 10, 24, 20,
+                Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
+        list.add(Entry(1, "13/02", 2, 10, 24, 20,
+                Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
 
-        recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view).apply {
+        val filterButton = findViewById<Button>(R.id.filterButton);
+        filterButton.setOnClickListener{
+            var intent : Intent = Intent(this, ListActivity::class.java);
+            startActivity(intent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+        }
+/*
+        val fab: View = findViewById(R.id.fab)
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show()
+        }
+
+*/
+        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        viewAdapter = RecyclerAdapter(this, list)
+
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
 
             // use a linear layout manager
-            layoutManager = viewManager
+            layoutManager = linearLayoutManager
 
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
 
         }
     }
-
 
     override fun onStart() {
         super.onStart()
