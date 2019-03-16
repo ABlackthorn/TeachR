@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import java.time.LocalDateTime
-import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -30,10 +29,18 @@ class ListActivity : Activity() {
         //getSupportActionBar()?.hide(); // hide the title bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
+
         setContentView(R.layout.activity_list)
 
-        list.add(Entry(1, "13/02", 2, 10, 24, 20,
-                Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
+        val mAuth = FirebaseAuth.getInstance()
+        findViewById<Button>(R.id.button).setOnClickListener{
+            mAuth.signOut()
+            val intent: Intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+       list.add(Entry(1, "13/02", 2, 10, 24, 20,
+            Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
         list.add(Entry(1, "13/02", 2, 10, 24, 20,
                 Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
         list.add(Entry(1, "13/02", 2, 10, 24, 20,
@@ -41,21 +48,21 @@ class ListActivity : Activity() {
         list.add(Entry(1, "13/02", 2, 10, 24, 20,
                 Subject(1,"Mathématiques"), "Wolfgang Amadeus Mozart", 1))
 
+        /*
         val filterButton = findViewById<Button>(R.id.filterButton);
-        filterButton.setOnClickListener{
-            var intent : Intent = Intent(this, ListActivity::class.java);
-            startActivity(intent,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
-        }
-/*
-        val fab: View = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .show()
-        }
+            filterButton.setOnClickListener{
+                var intent : Intent = Intent(this, ListActivity::class.java);
+                startActivity(intent,
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            }
+            val fab: View = findViewById(R.id.fab)
+            fab.setOnClickListener { view ->
+                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null)
+                        .show()
+            }
 
-*/
+    */
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         viewAdapter = RecyclerAdapter(this, list)
 
@@ -69,12 +76,6 @@ class ListActivity : Activity() {
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
 
-        }
-        val mAuth = FirebaseAuth.getInstance()
-        findViewById<Button>(R.id.button).setOnClickListener{
-            mAuth.signOut()
-            val intent: Intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 

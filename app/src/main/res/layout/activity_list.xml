@@ -5,16 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
+        android:layout_height="20dp"
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
+        android:layout_gravity="top|right"
+        android:text="Deconnexion"/>
+
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Deconnexion"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="667dp" />
-</android.support.constraint.ConstraintLayout>
         android:layout_alignParentTop="true"
         android:gravity="center" >
 
