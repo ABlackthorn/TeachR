@@ -19,6 +19,7 @@
     <string name="login_button">Connexion</string>
     <string name="signup_button">S\'inscrire</string>
     <string name="forgotten_password">Mot de passe oublié</string>
+    <string name="createEntry_button">Proposer le cours</string>
 
     <string name="cancel_button">Annuler</string>
 

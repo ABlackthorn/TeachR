@@ -1,5 +1,6 @@
 package com.teachr.teachr;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,11 +63,12 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
     };
 
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()){
             case R.id.button:
                 //action
                 mAuth.signOut();
-                Intent intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.filterButton:
@@ -78,7 +78,11 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
                 //ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
                 break;
             case R.id.fab:
-                this.addEntry();
+                intent = new Intent(this, MatiereOfferActivity.class);
+                startActivity(intent,
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                // this.addEntry();
+                // this.addSubject();
                 break;
         }
     }
@@ -109,7 +113,7 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
             mTwoPane = true;
         }
 
-        _db = FirebaseDatabase.getInstance().getReference().child("entry");
+        _db = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseEntry());
 
         View recyclerView = findViewById(R.id.entry_list);
         assert recyclerView != null;
@@ -117,14 +121,14 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
 
         _db.orderByKey().addValueEventListener(_entryListener);
     }
-
+/*
     private void addEntry() {
         // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
         Entry entry = new Entry("13/02", 2, 45.494354, -73.561818, 24,
                 "11R", "Wolfgang Amadeus Mozart", 1);
         //Get the object id for the new task from the Firebase Database
 
-        DatabaseReference newEntry = _db.child(Utils.getFirebaseEntry()).push();
+        DatabaseReference newEntry = _db.push();
         entry.setId(newEntry.getKey());
 
         //Set the values for new task in the firebase using the footer form
@@ -133,34 +137,48 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
         Toast.makeText(this, "Task added to the list successfully" + entry.getId(), Toast.LENGTH_SHORT).show();
     }
 
+    private void addSubject() {
+
+        String[] subjects = {"Mathématiques", "Français", "Physique", "Anglais", "Espagnol",
+                            "Allemand", "Électronique", "Droit", "Médecine", "Sciences de la vie et de la terre"};
+
+        for(int i = 0; i < subjects.length; i++) {
+            Subject subject = new Subject(subjects[i]);
+            //Get the object id for the new task from the Firebase Database
+            _db = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseSubject());
+            DatabaseReference newSubject = _db.push();
+            subject.setId(newSubject.getKey());
+
+            //Set the values for new task in the firebase using the footer form
+            newSubject.setValue(subject);
+        }
+
+        Toast.makeText(this, "Subject added to the list successfully", Toast.LENGTH_SHORT).show();
+    }
+    */
+
     private void loadEntryList(DataSnapshot dataSnapshot) {
         Log.d("MainActivity", "loadEntryList");
 
         Iterator<DataSnapshot> entries = dataSnapshot.getChildren().iterator();
         //Check if current database contains any collection
-        if (entries.hasNext()) {
 
-            list.clear();
+        list.clear();
 
+        //check if the collection has any task or not
+        while (entries.hasNext()) {
 
-            DataSnapshot listIndex = entries.next();
-            Iterator<DataSnapshot> itemsIterator = listIndex.getChildren().iterator();
+            //get current task
+            DataSnapshot currentItem = entries.next();
 
-            //check if the collection has any task or not
-            while (itemsIterator.hasNext()) {
-
-                //get current task
-                DataSnapshot currentItem = itemsIterator.next();
-
-                //get current data in a map
-                HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
-                //key will return the Firebase ID
-                Entry entry = new Entry(currentItem.getKey(),
-                        (String) map.get("date"), (long) map.get("duration"),
-                        (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), (String) map.get("subject"),
-                        (String) map.get("user"), (long) map.get("type"));
-                list.add(entry);
-            }
+            //get current data in a map
+            HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
+            //key will return the Firebase ID
+            Entry entry = new Entry(currentItem.getKey(),
+                    (String) map.get("date"), (long) map.get("duration"),
+                    (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), (String) map.get("subject"),
+                    (String) map.get("user"), (long) map.get("type"));
+            list.add(entry);
         }
 
         //alert adapter that has changed

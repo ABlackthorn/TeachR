@@ -29,10 +29,10 @@ class MainActivity : Activity() {
         super.onStart()
         var currentUser = mAuth?.getCurrentUser()
         if ( currentUser != null ) {
-            var intent:Intent = Intent(this, EntryListActivity::class.java)
+            var intent:Intent = Intent(this, AddressOfferActivity::class.java)
             startActivity(intent)
         } else {
-            var intent:Intent = Intent(this, EntryListActivity::class.java)
+            var intent:Intent = Intent(this, AddressOfferActivity::class.java)
             startActivity(intent)
         }
     }
