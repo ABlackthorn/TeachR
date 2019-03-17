@@ -4,7 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ActionBar;
+import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * An activity representing a single Entry detail screen. This
@@ -12,12 +20,17 @@ import android.view.MenuItem;
  * item details are presented side-by-side with a list of items
  * in a {@link EntryListActivity}.
  */
-public class EntryDetailActivity extends Activity {
+public class EntryDetailActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry_detail);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -56,5 +69,15 @@ public class EntryDetailActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
