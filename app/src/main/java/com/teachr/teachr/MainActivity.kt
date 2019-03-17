@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import com.google.firebase.FirebaseApp
@@ -29,7 +30,7 @@ class MainActivity : Activity() {
         super.onStart()
         var currentUser = mAuth?.getCurrentUser()
         if ( currentUser != null ) {
-            var intent:Intent = Intent(this, EntryListActivity::class.java)
+            var intent:Intent = Intent(this.applicationContext, HomeActivity::class.java)
             startActivity(intent)
         } else {
             var intent:Intent = Intent(this, LoginActivity::class.java)
