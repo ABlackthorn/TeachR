@@ -44,7 +44,6 @@
             android:text="@string/filter" />
 
     </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/content"
     android:layout_width="fill_parent"
@@ -70,7 +69,6 @@
             tools:listitem="@layout/entry_list_content" />
 
     </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"

@@ -48,8 +48,7 @@
         <activity
             android:name=".AddressOfferActivity"
             android:label="@string/title_activity_adress_offer" />
-        <activity
-            android:name=".MatiereOfferActivity"/>
+        <activity android:name=".MatiereOfferActivity" />
         <activity
             android:name=".LastStepOfferActivity"
             android:label="@string/title_activity_last_step_offer" />
