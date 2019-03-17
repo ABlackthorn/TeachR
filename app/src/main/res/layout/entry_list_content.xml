@@ -1,148 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/id_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
--->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    tools:context=".EntryListActivity">
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/secondary_button">
 
-    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="10dp"
-        app:cardBackgroundColor="@color/backgroundCard"
-        card_view:cardCornerRadius="4dp">
+    <TextView
+        android:id="@+id/course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="@string/matiere"
+        android:textColor="@color/bold"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"/>
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/card_view"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:text="@string/price"
+        android:textColor="@color/bold"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"/>
 
-            <TextView
-                android:id="@+id/course"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:height="40dp"
-                android:gravity="center_vertical"
-                android:text="@string/matiere"
-                android:textColor="@color/bold"
-                android:textSize="30dp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/course"
+        android:gravity="center_vertical"
+        android:text="@string/date"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"/>
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/course"
-                android:layout_toEndOf="@+id/course"
-                android:height="40dp"
-                android:gravity="center_vertical"
-                android:paddingStart="40dp"
-                android:text="@string/price"
-                android:textColor="@color/bold"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date"
+        android:layout_alignTop="@+id/date"
+        android:layout_toEndOf="@+id/date"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:text="@string/duration"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/course"
-                android:height="40dp"
-                android:gravity="center_vertical"
-                android:text="@string/date"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/duration"
+        android:gravity="center_vertical"
+        android:text="@string/address"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"/>
 
-            <TextView
-                android:id="@+id/duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/date"
-                android:layout_alignTop="@+id/date"
-                android:layout_toEndOf="@+id/date"
-                android:height="40dp"
-                android:gravity="center_vertical"
-                android:paddingStart="40dp"
-                android:text="@string/duration"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+    <com.teachr.teachr.CircularImageView
+        android:id="@+id/avatar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/address"
+        android:background="@mipmap/teachr_logo_rounded"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
 
-            <TextView
-                android:id="@+id/address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/duration"
-                android:height="40dp"
-                android:gravity="center_vertical"
-                android:text="@string/address"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/avatar"
+        android:layout_below="@id/address"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:text="@string/name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/avatar"
-                android:layout_below="@id/address"
-                android:paddingStart="40dp"
-                android:layout_marginTop="10dp"
-                android:height="40dp"
-                android:gravity="center_vertical"
-                android:text="@string/name"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <com.teachr.teachr.CircularImageView
-                android:id="@+id/avatar"
-                android:layout_width="95dp"
-                android:layout_height="107dp"
-                android:layout_below="@id/address"
-                android:width="1dp"
-                android:height="1dp"
-                android:paddingBottom="10dp"
-                android:background="@mipmap/teachr_logo_rounded"
-                android:maxWidth="1dp"
-                android:maxHeight="1dp" />
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
 </RelativeLayout>
