@@ -7,10 +7,13 @@ import android.view.WindowManager
 import com.google.firebase.auth.FirebaseAuth
 import android.app.ActivityOptions
 import android.content.Intent
+import android.util.Log
 import android.widget.*
 
 
 class LoginActivity : Activity() {
+
+    var backpressCounter : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,7 @@ class LoginActivity : Activity() {
                                 var intent: Intent = Intent(this, EntryListActivity::class.java)
                                 startActivity(intent)
                             } else {
+                                Log.d("MYERROR", task.exception?.localizedMessage.toString())
                                 Toast.makeText(this@LoginActivity, R.string.authentication_failure,
                                         Toast.LENGTH_SHORT).show()
                             }
@@ -55,10 +59,32 @@ class LoginActivity : Activity() {
                     ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
+        findViewById<TextView>(R.id.forgottenPasswordTextView).setOnClickListener{
+            var fpDialog: ForgottenPasswordDialog = ForgottenPasswordDialog(this)
+            fpDialog.show()
+        }
+
     }
 
     override fun onStart() {
         super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        backpressCounter = 0
+    }
+
+    override fun onBackPressed() {
+        if (backpressCounter == 0){
+            Toast.makeText(this@LoginActivity, R.string.backpress_to_leave_message, Toast.LENGTH_SHORT).show()
+        backpressCounter++
+        } else {
+            val homeIntent = Intent(Intent.ACTION_MAIN)
+            homeIntent.addCategory(Intent.CATEGORY_HOME)
+            homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(homeIntent)
+        }
     }
 
 }

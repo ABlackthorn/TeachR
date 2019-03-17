@@ -10,6 +10,10 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Switch
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseUser
+
+
 
 
 class SignupActivity : Activity() {
@@ -38,12 +42,14 @@ class SignupActivity : Activity() {
             val address = findViewById<EditText>(R.id.addressEditText).text.toString()
             val type = findViewById<Switch>(R.id.typeSwitch).isActivated
 
-            if(password != passwordRepeat){
+            if(password.length < 6) {
+                Toast.makeText(this@SignupActivity, getString(R.string.password_too_short), Toast.LENGTH_LONG).show()
+            } else if(password != passwordRepeat){
                 Toast.makeText(this@SignupActivity, getString(R.string.passwords_mismatch), Toast.LENGTH_LONG).show()
             } else if(email.isEmpty() || password.isEmpty() || passwordRepeat.isEmpty() || firstname.isEmpty() || lastname.isEmpty() || address.isEmpty()){
                 Toast.makeText(this@SignupActivity, getString(R.string.enter_details_error), Toast.LENGTH_LONG).show()
             } else {
-                createAccount(email, password)
+                createAccount(email, password, firstname, lastname, address, type)
             }
         }
 
@@ -53,7 +59,7 @@ class SignupActivity : Activity() {
 
     }
 
-    fun createAccount (email: String, password: String) {
+    fun createAccount (email: String, password: String, firstname: String, lastname: String, address: String, type: Boolean) {
         if( !email.equals("") && !password.equals("")){
             mAuth?.createUserWithEmailAndPassword(email, password)
                     ?.addOnCompleteListener{ task ->
@@ -64,7 +70,42 @@ class SignupActivity : Activity() {
                                             Toast.makeText(this@SignupActivity, getString(R.string.verification_message_sent), Toast.LENGTH_LONG).show()
                                         }
                                     }
-                            var intent: Intent = Intent(this, EntryListActivity::class.java)
+
+                            val Fuser = FirebaseAuth.getInstance().currentUser
+                            var user: User = User()
+                            user.id = Fuser?.uid
+                            user.email = email
+                            user.password = password
+                            user.firstname = firstname
+                            user.lastname = lastname
+                            user.address = address
+                            if(type) user.type = 0
+                            else user.type = 1
+                            val database = FirebaseDatabase.getInstance().reference
+                            database.child("users").push().setValue(user)
+
+//                            database.runTransaction(object : Transaction.Handler {
+//                                override fun doTransaction(mutableData: MutableData): Transaction.Result {
+//                                    val u = mutableData.getValue(User::class.java)
+//                                            ?: return Transaction.success(mutableData)
+//
+//                                    // Set value and report transaction success
+//                                    mutableData.value = u
+//                                    return Transaction.success(mutableData)
+//                                }
+//
+//                                override fun onComplete(
+//                                        databaseError: DatabaseError?,
+//                                        b: Boolean,
+//                                        dataSnapshot: DataSnapshot?
+//                                ) {
+//                                    // Transaction completed
+//                                    //Log.d(TAG, "postTransaction:onComplete:" + databaseError!!)
+//                                }
+//                            })
+
+
+                            var intent: Intent = Intent(this, ListActivity::class.java)
                             startActivity(intent)
                         } else {
                             Toast.makeText(this@SignupActivity, getString(R.string.signup_failed), Toast.LENGTH_LONG).show()

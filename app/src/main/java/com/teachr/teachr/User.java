@@ -2,9 +2,8 @@ package com.teachr.teachr;
 
 public class User {
 
-    private int age;
     private String id;
-    private int firstname;
+    private String firstname;
     private String lastname;
     private String address;
     private String email;
@@ -13,16 +12,6 @@ public class User {
     private String avatar;
 
     User() {
-
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public String getId() {
         return id;
