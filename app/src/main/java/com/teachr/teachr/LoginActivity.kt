@@ -13,6 +13,8 @@ import android.widget.*
 
 class LoginActivity : Activity() {
 
+    var backpressCounter : Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
@@ -57,10 +59,32 @@ class LoginActivity : Activity() {
                     ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
+        findViewById<TextView>(R.id.forgottenPasswordTextView).setOnClickListener{
+            var fpDialog: ForgottenPasswordDialog = ForgottenPasswordDialog(this)
+            fpDialog.show()
+        }
+
     }
 
     override fun onStart() {
         super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        backpressCounter = 0
+    }
+
+    override fun onBackPressed() {
+        if (backpressCounter == 0){
+            Toast.makeText(this@LoginActivity, R.string.backpress_to_leave_message, Toast.LENGTH_SHORT).show()
+        backpressCounter++
+        } else {
+            val homeIntent = Intent(Intent.ACTION_MAIN)
+            homeIntent.addCategory(Intent.CATEGORY_HOME)
+            homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(homeIntent)
+        }
     }
 
 }

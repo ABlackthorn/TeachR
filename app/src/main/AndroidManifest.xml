@@ -20,6 +20,7 @@
         <activity
             android:name=".LastStepOfferActivity"
             android:label="@string/title_activity_last_step_offer" />
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -28,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
         <activity android:name=".ListActivity" />
     </application>
 

@@ -2,7 +2,7 @@ package com.teachr.teachr;
 
 public class User {
 
-    private int id;
+    private String id;
     private String firstname;
     private String lastname;
     private String address;
@@ -13,11 +13,11 @@ public class User {
 
     public User(){}
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

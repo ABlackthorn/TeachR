@@ -7,9 +7,16 @@
     <string name="placeholder_firstname">Prénom</string>
     <string name="placeholder_lastname">Nom</string>
     <string name="placeholder_address">Adresse</string>
+    <string name="placeholder_email_forgotten_password">Entrez votre e-mail</string>
+    <string name="forgotten_password_dialog_title">Mot de passe oublié</string>
+    <string name="forgotten_password_dialog_confirm_button">Réinitialiser</string>
+    <string name="forgotten_password_dialog_message">Réinitialisation de votre mdp...</string>
+    <string name="forgotten_password_dialog_error_message">Erreur lors de la réinitialisation de votre mdp</string>
+    <string name="backpress_to_leave_message">Appuyer sur retour une deuxième fois pour quitter</string>
 
     <string name="login_button">Connexion</string>
     <string name="signup_button">S\'inscrire</string>
+    <string name="forgotten_password">Mot de passe oublié</string>
 
     <string name="cancel_button">Annuler</string>
 
@@ -17,8 +24,10 @@
     <string name="authentication_failure">Erreur d\'authentification</string>
     <string name="enter_details_error">Veuillez entrer vos informations</string>
     <string name="verification_message_sent">Un e-mail de vérification a été envoyé à votre messagerie</string>
+    <string name="forgotten_password_message_sent">Un e-mail de réinitialisation a été envoyé à votre messagerie</string>
     <string name="signup_failed">Erreur lors de l\'inscription</string>
     <string name="passwords_mismatch">Les mots de passe entrés ne sont pas identiques</string>
+    <string name="password_too_short">Veuillez entrer un mot de passe contenant plus de 6 caractères</string>
 
     <string name="or">ou</string>
     <string name="title_activity_last_step_offer">LastStepOfferActivity</string>
