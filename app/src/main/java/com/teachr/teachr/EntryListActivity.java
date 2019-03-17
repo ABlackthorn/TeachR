@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -78,9 +79,16 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
                 //ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
                 break;
             case R.id.fab:
-                intent = new Intent(this, MatiereOfferActivity.class);
-                startActivity(intent,
-                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                FirebaseAuth mAuth = null;
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if ( currentUser != null ) {
+                    intent = new Intent(this, MatiereOfferActivity.class);
+                    Entry entry = new Entry();
+                    entry.setUser(currentUser.getUid());
+                    intent.putExtra("entry", entry);
+                    startActivity(intent);
+                }
                 // this.addEntry();
                 // this.addSubject();
                 break;

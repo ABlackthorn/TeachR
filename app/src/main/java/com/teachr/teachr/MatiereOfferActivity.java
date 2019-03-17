@@ -30,7 +30,7 @@ public class MatiereOfferActivity extends Activity implements AdapterView.OnItem
     private DatabaseReference _db;
     private ArrayList<Subject> list = new ArrayList<>();
     private ArrayAdapter<Subject> dataAdapter;
-
+    private Entry entry;
 
     ValueEventListener _entryListener = new ValueEventListener() {
         @Override
@@ -49,6 +49,7 @@ public class MatiereOfferActivity extends Activity implements AdapterView.OnItem
         switch (view.getId()){
             case R.id.nextButton:
                 intent = new Intent(this, AddressOfferActivity.class);
+                intent.putExtra("entry", entry);
                 startActivity(intent);
                 break;
         }
@@ -66,7 +67,8 @@ public class MatiereOfferActivity extends Activity implements AdapterView.OnItem
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
 
-
+        Intent myIntent = getIntent();
+        entry = myIntent.getParcelableExtra("entry");
         _db = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseSubject());
 
         _db.orderByKey().addValueEventListener(_entryListener);
@@ -119,8 +121,10 @@ public class MatiereOfferActivity extends Activity implements AdapterView.OnItem
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
 
+        entry.setSubject(list.get(position).getId());
+
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+        Toast.makeText(parent.getContext(), "Selected: " + entry.toString(), Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub

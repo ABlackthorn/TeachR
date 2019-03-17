@@ -25,7 +25,9 @@ public class Entry implements Parcelable {
         }
     };
 
-    public Entry(){}
+    public Entry(){
+
+    }
 
     public Entry(String date, long duration, double longitude, double latitude, long price, String subject, String user, long type ){
         this.date = date;

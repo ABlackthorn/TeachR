@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
@@ -17,10 +18,14 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 public class AddressOfferActivity extends FragmentActivity implements View.OnClickListener {
 
+    private Entry entry;
+
     PlaceSelectionListener _placeListener = new PlaceSelectionListener() {
         public void onPlaceSelected (Place place){
             // TODO: Get info about the selected place.
             Log.d("Ok place", "Place: " + place.getName());//get place details here
+            entry.setLatitude(place.getLatLng().latitude);
+            entry.setLongitude(place.getLatLng().longitude);
         }
 
         public void onError (Status status){
@@ -33,7 +38,9 @@ public class AddressOfferActivity extends FragmentActivity implements View.OnCli
         Intent intent;
         switch (view.getId()){
             case R.id.nextButton2:
+                Toast.makeText(this, "Selected: " + entry.toString(), Toast.LENGTH_LONG).show();
                 intent = new Intent(this, PriceOfferActivity.class);
+                intent.putExtra("entry", entry);
                 startActivity(intent);
                 break;
         }
@@ -61,6 +68,9 @@ public class AddressOfferActivity extends FragmentActivity implements View.OnCli
         autocompleteFragment.setFilter(typeFilter);
 
         autocompleteFragment.setOnPlaceSelectedListener(_placeListener);
+
+        Intent myIntent = getIntent();
+        entry = myIntent.getParcelableExtra("entry");
     }
 
 }

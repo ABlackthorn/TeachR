@@ -50,6 +50,18 @@
     <string name="placeholder_duration">Durée</string>
     <string name="title_activity_adress_offer">AdressOfferActivity</string>
     <string name="title_activity_duration_offer">durationOfferActivity</string>
+    <string name="next">Suivant</string>
+    <string name="validate">Valider</string>
+    <string name="stepOne">Étape 1/4</string>
+    <string name="stepTwo">Étape 2/4</string>
+    <string name="stepThree">Étape 3/4</string>
+    <string name="stepFor">Étape 4/4</string>
+    <string name="lastStep">Récapitulatif de votre demande</string>
+    <string name="courseSubject">Indiquez le sujet du cours :</string>
+    <string name="courseAddress">Indiquez l\'adresse du cours :</string>
+    <string name="coursePrice">Indiquez le prix du cours : </string>
+    <string name="courseDuration">Indiquez la durée du cours : </string>
+
 
     <string name="student">Étudiant</string>
     <string name="teacher">Enseignant</string>

@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="50dp"
-            android:text="Étapes 3/4"
+            android:text="@string/stepFor"
             android:textColor="@color/colorPrimary"
             android:layout_centerHorizontal="true"
             android:textSize="30sp" />
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
-            android:text="Indiquez le prix du cours : "
+            android:text="@string/courseDuration"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimaryDark"
             android:layout_below="@id/step4textView"
@@ -62,7 +62,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="75dp"
             android:ems="10"
-            android:hint="@string/placeholder_price"
+            android:hint="@string/placeholder_duration"
             android:inputType="numberDecimal"
             android:textAlignment="center" />
         <Button
@@ -72,7 +72,7 @@
             android:layout_marginTop="70dp"
             android:layout_centerHorizontal="true"
             android:background="@color/colorPrimaryDark"
-            android:text="Suivant"
+            android:text="@string/next"
             android:layout_below="@+id/durationEditText"/>
 
     </RelativeLayout>

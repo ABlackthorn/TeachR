@@ -5,14 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class DurationOfferActivity extends Activity implements View.OnClickListener {
-
+    Entry entry;
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()){
             case R.id.nextButton4:
-                intent = new Intent(this, DurationOfferActivity.class);
+                EditText edit = findViewById(R.id.durationEditText);
+                entry.setPrice( Long.parseLong(edit.getText().toString()));
+                intent = new Intent(this, LastStepOfferActivity.class);
+                intent.putExtra("entry", entry);
                 startActivity(intent);
                 break;
         }
@@ -26,6 +30,9 @@ public class DurationOfferActivity extends Activity implements View.OnClickListe
 
         Button button = findViewById(R.id.nextButton4);
         button.setOnClickListener(this);
+
+        Intent myIntent = getIntent();
+        entry = myIntent.getParcelableExtra("entry");
     }
 
 }
