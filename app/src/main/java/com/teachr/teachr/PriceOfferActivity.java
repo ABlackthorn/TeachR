@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class PriceOfferActivity extends Activity implements View.OnClickListener {
 
@@ -17,10 +18,15 @@ public class PriceOfferActivity extends Activity implements View.OnClickListener
         switch (view.getId()){
             case R.id.nextButton3:
                 EditText edit = findViewById(R.id.priceEditText);
-                entry.setPrice( Long.parseLong(edit.getText().toString()));
-                intent = new Intent(this, DurationOfferActivity.class);
-                intent.putExtra("entry", entry);
-                startActivity(intent);
+                String editString = edit.getText().toString();
+                if(editString.isEmpty()){
+                    Toast.makeText(this, "La durée est obligatoire", Toast.LENGTH_LONG).show();
+                } else {
+                    entry.setPrice( Long.parseLong(edit.getText().toString()));
+                    intent = new Intent(this, DurationOfferActivity.class);
+                    intent.putExtra("entry", entry);
+                    startActivity(intent);
+                }
                 break;
         }
     }

@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -255,7 +256,7 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
             holder.courseView.setText(mValues.get(position).getSubject());
             holder.addressView.setText(String.format("%1$,.2f", mValues.get(position).getLatitude()));
             holder.durationView.setText(String.format("%d", mValues.get(position).getDuration()));
-            holder.dateView.setText(mValues.get(position).getDate());
+            holder.dateView.setText(mValues.get(position).getDate().toString());
             holder.nameView.setText(mValues.get(position).getUser());
             holder.priceView.setText(String.format("%d", mValues.get(position).getPrice()));
             holder.itemView.setTag(mValues.get(position));

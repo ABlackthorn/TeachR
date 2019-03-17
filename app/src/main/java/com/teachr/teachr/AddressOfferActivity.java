@@ -10,39 +10,32 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.libraries.places.api.Places;
+
+import java.util.Arrays;
 
 
 public class AddressOfferActivity extends FragmentActivity implements View.OnClickListener {
 
     private Entry entry;
 
-    PlaceSelectionListener _placeListener = new PlaceSelectionListener() {
-        public void onPlaceSelected (Place place){
-            // TODO: Get info about the selected place.
-            Log.d("Ok place", "Place: " + place.getName());//get place details here
-            entry.setLatitude(place.getLatLng().latitude);
-            entry.setLongitude(place.getLatLng().longitude);
-        }
-
-        public void onError (Status status){
-            // TODO: Handle the error.
-            Log.i("Error place", "An error occurred: $status");
-        }
-    };
-
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()){
             case R.id.nextButton2:
-                Toast.makeText(this, "Selected: " + entry.toString(), Toast.LENGTH_LONG).show();
-                intent = new Intent(this, PriceOfferActivity.class);
-                intent.putExtra("entry", entry);
-                startActivity(intent);
+                if(entry.getLatitude() == 0) {
+                    Toast.makeText(this, "Adresse obligatoire", Toast.LENGTH_LONG).show();
+                } else {
+                    intent = new Intent(this, PriceOfferActivity.class);
+                    intent.putExtra("entry", entry);
+                    startActivity(intent);
+                }
                 break;
+                
         }
     }
 
@@ -54,20 +47,38 @@ public class AddressOfferActivity extends FragmentActivity implements View.OnCli
         Button button = findViewById(R.id.nextButton2);
         button.setOnClickListener(this);
 
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager()
-                                                            .findFragmentById(R.id.place_autocomplete_fragment);
+        // Initialize Places.
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), "AIzaSyBy5wzih3SDrAiC2D9SjbbGjrmmE0R32DY");
+        }
 
-        /*
-         * The following code example shows setting an AutocompleteFilter on a PlaceAutocompleteFragment to
-         * set a filter returning only results with a precise address.
-         */
-        AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
-                .build();
+// Create a new Places client instance.
+        PlacesClient placesClient = Places.createClient(this);
 
-        autocompleteFragment.setFilter(typeFilter);
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
-        autocompleteFragment.setOnPlaceSelectedListener(_placeListener);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            private Place place;
+
+            @Override
+            public void onPlaceSelected(Place place) {
+                this.place = place;
+                // TODO: Get info about the selected place.
+                Log.d("yes we got it", "Place: " + this.place + ", " + place.getId());
+                entry.setLatitude(place.getLatLng().latitude);
+                entry.setLongitude(place.getLatLng().longitude);
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("nop", "An error occurred: " + status);
+            }
+        });
 
         Intent myIntent = getIntent();
         entry = myIntent.getParcelableExtra("entry");

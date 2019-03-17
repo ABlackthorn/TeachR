@@ -54,11 +54,13 @@
             android:textSize="30sp" />
 
         <fragment
-            android:id="@+id/place_autocomplete_fragment"
+            android:id="@+id/autocomplete_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView3"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+            android:name=
+                "com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            />
 
         <Button
             android:id="@+id/nextButton2"
@@ -68,7 +70,7 @@
             android:layout_centerHorizontal="true"
             android:background="@color/colorPrimaryDark"
             android:text="@string/next"
-            android:layout_below="@+id/place_autocomplete_fragment"/>
+            android:layout_below="@+id/autocomplete_fragment"/>
 
     </RelativeLayout>
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:layout_centerHorizontal="true"
     tools:context=".LastStepOfferActivity">
 
     <RelativeLayout
@@ -67,6 +68,13 @@
                 android:layout_toEndOf="@+id/matiere"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/colorPrimaryDark" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/footer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/footer"
+        android:layout_centerHorizontal="true">
 
             <TextView
                 android:id="@+id/address"
@@ -74,7 +82,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/matiere"
                 android:text="@string/address"
                 android:textColor="@color/bold" />
 
@@ -83,10 +90,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/matiere"
+                android:layout_below="@id/address"
                 android:text="@string/address"
-                android:layout_toEndOf="@+id/address"
+                android:layout_toEndOf="@id/address"
                 android:textColor="@color/colorPrimaryDark" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/footer1"
+        android:layout_centerHorizontal="true">
 
             <TextView
                 android:id="@+id/price"
@@ -94,7 +109,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/address"
                 android:text="@string/price"
                 android:textColor="@color/bold" />
 
@@ -103,17 +117,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/address"
+                android:layout_below="@id/price"
                 android:layout_toEndOf="@+id/price"
                 android:text="@string/price"
                 android:textColor="@color/colorPrimaryDark" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/footer3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/footer2"
+        android:layout_centerHorizontal="true">
 
             <TextView
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:layout_below="@id/price"
                 android:layout_centerHorizontal="true"
                 android:text="@string/duration"
                 android:textColor="@color/bold" />
@@ -122,22 +142,56 @@
                 android:id="@+id/duration1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/price"
+                android:layout_below="@id/duration"
                 android:layout_toEndOf="@+id/duration"
                 android:layout_centerHorizontal="true"
                 android:text="@string/duration"
                 android:textColor="@color/colorPrimaryDark" />
-
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="158dp"
+    <RelativeLayout
+        android:id="@+id/footer4"
+        android:layout_width="361dp"
+        android:layout_height="291dp"
+        android:layout_below="@id/footer3"
+        android:layout_marginTop="5dp">
+
+        <CalendarView
+            android:id="@+id/calendar"
+            android:layout_width="360dp"
+            android:layout_height="273dp"
+            android:layout_below="@id/myDate"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorPrimary"
+            android:textAlignment="center"
+            android:theme="@style/AppTheme"></CalendarView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer5"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_below="@id/footer"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/primary_button"
-        android:text="@string/validate" />
+        android:layout_below="@+id/footer4"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:id="@+id/nextButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/primary_button"
+            android:text="@string/next" />
+    </RelativeLayout>
 
 </RelativeLayout>

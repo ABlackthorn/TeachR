@@ -8,7 +8,7 @@ public class Entry implements Parcelable {
     private String id;
     private String date;
     private long duration;
-    private double longitude;
+    private double longitude = 0;
     private double latitude;
     private long price;
     private String subject;
@@ -160,7 +160,7 @@ public class Entry implements Parcelable {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Entry{" +
                 "id='" + id + '\'' +
                 ", date='" + date + '\'' +
                 ", longitude='" + longitude + '\'' +
