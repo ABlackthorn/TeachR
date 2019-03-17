@@ -70,6 +70,15 @@
                 android:text="Durée :"
                 android:textColor="@color/colorPrimaryDark" />
 
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Date : "
+                android:textColor="@color/colorPrimaryDark" />
+
         </LinearLayout>
 
     </LinearLayout>

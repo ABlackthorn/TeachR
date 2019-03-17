@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
-        android:text="Étapes 1/4"
+        android:text="Étapes 1/5"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"

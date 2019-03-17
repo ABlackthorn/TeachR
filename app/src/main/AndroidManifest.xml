@@ -15,7 +15,13 @@
         <activity android:name=".PriceOfferActivity" />
         <activity
             android:name=".AdressOfferActivity"
-            android:label="@string/title_activity_adress_offer" />
+            android:label="@string/title_activity_adress_offer" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
         <activity android:name=".matiereOfferActivity" />
         <activity
             android:name=".LastStepOfferActivity"
@@ -30,6 +36,11 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".ListActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAvHwMXGx06mGfWTn5hWDyNLVFlX-rZtrg"/>
+
     </application>
 
 </manifest>
