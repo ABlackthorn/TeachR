@@ -41,4 +41,7 @@
 
     <string name="student">Étudiant</string>
     <string name="teacher">Enseignant</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_entry_list">Entries</string>
+    <string name="title_entry_detail">Entry Detail</string>
 </resources>

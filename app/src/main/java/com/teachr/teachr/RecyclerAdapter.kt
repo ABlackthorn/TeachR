@@ -13,7 +13,7 @@ import java.util.ArrayList
 /**
  * Created by Parsania Hardik on 26-Jun-17.
  */
-class RecyclerAdapter(ctx: Context, private val list: List<Entry>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
+class RecyclerAdapter(ctx: Context, private val list: MutableList<Entry>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater
 
@@ -31,8 +31,8 @@ class RecyclerAdapter(ctx: Context, private val list: List<Entry>) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: RecyclerAdapter.MyViewHolder, position: Int) {
-        holder.course.text = list[position].subject.name
-        holder.address.text = list[position].geopoint.toString()
+        holder.course.text = list[position].subject
+        holder.address.text = list[position].latitude.toString()
         holder.duration.text = list[position].duration.toString()
         holder.date.text = list[position].date
         holder.name.text = list[position].user

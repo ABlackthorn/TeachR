@@ -11,7 +11,7 @@
         android:theme="@style/MaterialTheme">
         <activity
             android:name=".durationOfferActivity"
-            android:label="@string/title_activity_duration_offer"></activity>
+            android:label="@string/title_activity_duration_offer" />
         <activity android:name=".PriceOfferActivity" />
         <activity
             android:name=".AdressOfferActivity"
@@ -29,7 +29,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ListActivity" />
+        <activity
+            android:name=".ListActivity"
+            android:theme="@style/ListTheme" />
     </application>
 
 </manifest>
