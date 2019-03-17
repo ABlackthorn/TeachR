@@ -23,21 +23,13 @@
           }
         },
         {
-          "client_id": "435307443386-d9j6gbvpmmraffnol7567vgmqpqin9p3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.teachr.teachr",
-            "certificate_hash": "736cf135af81d02979df13d87ee0b95d06bca981"
-          }
-        },
-        {
           "client_id": "435307443386-aop0g2ssi91ars0ru11nb5e7m73jo3od.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBjuuBjodzGl1mQ3qXl81xdm78H2Hptq5s"
+          "current_key": "AIzaSyAvHwMXGx06mGfWTn5hWDyNLVFlX-rZtrg"
         }
       ],
       "services": {

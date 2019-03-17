@@ -7,6 +7,7 @@ import android.view.WindowManager
 import com.google.firebase.auth.FirebaseAuth
 import android.app.ActivityOptions
 import android.content.Intent
+import android.util.Log
 import android.widget.*
 
 
@@ -37,6 +38,7 @@ class LoginActivity : Activity() {
                                 var intent: Intent = Intent(this, ListActivity::class.java)
                                 startActivity(intent)
                             } else {
+                                Log.d("MYERROR", task.exception?.localizedMessage.toString())
                                 Toast.makeText(this@LoginActivity, R.string.authentication_failure,
                                         Toast.LENGTH_SHORT).show()
                             }
