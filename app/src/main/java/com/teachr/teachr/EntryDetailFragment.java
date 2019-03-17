@@ -20,12 +20,12 @@ public class EntryDetailFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_ENTRY = "entry";
 
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private Entry entry;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -38,11 +38,11 @@ public class EntryDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        if (getArguments().containsKey(ARG_ENTRY)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            entry = getArguments().getParcelable(ARG_ENTRY);
         }
     }
 
@@ -52,8 +52,13 @@ public class EntryDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.entry_detail, container, false);
 
         // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.entry_detail)).setText(mItem.details);
+        if (entry != null) {
+            ((TextView) rootView.findViewById(R.id.name)).setText(entry.getUser());
+            ((TextView) rootView.findViewById(R.id.course)).setText(entry.getSubject());
+            ((TextView) rootView.findViewById(R.id.date)).setText(entry.getDate());
+            ((TextView) rootView.findViewById(R.id.price)).setText(String.format("%d", entry.getPrice()));
+            ((TextView) rootView.findViewById(R.id.address)).setText(String.format("%1$,.2f", entry.getLatitude()));
+            ((TextView) rootView.findViewById(R.id.duration)).setText(String.format("%d", entry.getDuration()));
         }
 
         return rootView;

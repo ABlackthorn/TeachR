@@ -29,8 +29,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import values.Statics;
-
 /**
  * An activity representing a list of Entries. This activity
  * has different presentations for handset and tablet-size devices. On
@@ -181,7 +179,7 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
                 Entry item = (Entry) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(EntryDetailFragment.ARG_ITEM_ID, item.getId());
+                    arguments.putParcelable(EntryDetailFragment.ARG_ENTRY, item);
                     EntryDetailFragment fragment = new EntryDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getFragmentManager().beginTransaction()
@@ -190,7 +188,7 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, EntryDetailActivity.class);
-                    intent.putExtra(EntryDetailFragment.ARG_ITEM_ID, item.getId());
+                    intent.putExtra(EntryDetailFragment.ARG_ENTRY, item);
 
                     context.startActivity(intent);
                 }

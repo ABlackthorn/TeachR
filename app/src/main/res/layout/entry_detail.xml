@@ -1,10 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/entry_detail"
-    style="?android:attr/textAppearanceLarge"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context=".EntryDetailFragment" />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:id="@+id/course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:text="@string/matiere"
+        android:textColor="@color/bold"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/course"
+        android:layout_toEndOf="@+id/course"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:paddingStart="40dp"
+        android:text="@string/price"
+        android:textColor="@color/bold"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/course"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:text="@string/date"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date"
+        android:layout_alignTop="@+id/date"
+        android:layout_toEndOf="@+id/date"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:paddingStart="40dp"
+        android:text="@string/duration"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/duration"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:text="@string/address"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/avatar"
+        android:layout_below="@id/address"
+        android:paddingStart="40dp"
+        android:layout_marginTop="10dp"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:text="@string/name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.teachr.teachr.CircularImageView
+        android:id="@+id/avatar"
+        android:layout_width="95dp"
+        android:layout_height="107dp"
+        android:layout_below="@id/address"
+        android:width="1dp"
+        android:height="1dp"
+        android:paddingBottom="10dp"
+        android:background="@mipmap/teachr_logo_rounded"
+        android:maxWidth="1dp"
+        android:maxHeight="1dp" />
+
+</RelativeLayout>
