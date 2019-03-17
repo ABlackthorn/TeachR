@@ -10,6 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme">
         <activity
+            android:name=".EntryListActivity"
+            android:label="@string/title_entry_list"></activity>
+        <activity
+            android:name=".EntryDetailActivity"
+            android:label="@string/title_entry_detail"
+            android:parentActivityName=".EntryListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.teachr.teachr.EntryListActivity" />
+        </activity>
+        <activity
             android:name=".durationOfferActivity"
             android:label="@string/title_activity_duration_offer" />
         <activity android:name=".PriceOfferActivity" />
@@ -29,9 +40,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity
-            android:name=".ListActivity"
-            android:theme="@style/ListTheme" />
     </application>
 
 </manifest>
