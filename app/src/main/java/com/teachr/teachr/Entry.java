@@ -1,90 +1,111 @@
 package com.teachr.teachr;
 
-import java.util.Date;
-
 public class Entry {
 
-    private int id;
-    private Date date;
-    private int duration;
-    private int longitude;
-    private int latitude;
-    private int price;
-    private Subject subject;
-    private User user;
-    private int type;
+    private String id;
+    private String date;
+    private long duration;
+    private double longitude;
+    private double latitude;
+    private long price;
+    private String subject;
+    private String user;
+    private long type;
 
     public Entry(){}
 
-    public int getId() {
+    public Entry(String date, long duration, double longitude, double latitude, long price, String subject, String user, long type ){
+        this.date = date;
+        this.duration = duration;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.price = price;
+        this.subject = subject;
+        this.user = user;
+        this.type = type;
+    }
+
+    public Entry(String id, String date, long duration, double longitude, double latitude, long price, String subject, String user, long type ){
+        this.id = id;
+        this.date = date;
+        this.duration = duration;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.price = price;
+        this.subject = subject;
+        this.user = user;
+        this.type = type;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public int getDuration() {
+    public long getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(long duration) {
         this.duration = duration;
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public int getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
-    public Subject getSubject() {
+    public String getSubject() {
         return subject;
     }
 
-    public void setSubject(Subject subject) {
+    public void setSubject(String subject) {
         this.subject = subject;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
-    public int getType() {
+    public long getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(long type) {
         this.type = type;
     }
 }

@@ -105,7 +105,7 @@ class SignupActivity : Activity() {
 //                            })
 
 
-                            var intent: Intent = Intent(this, ListActivity::class.java)
+                            var intent: Intent = Intent(this, EntryListActivity::class.java)
                             startActivity(intent)
                         } else {
                             Toast.makeText(this@SignupActivity, getString(R.string.signup_failed), Toast.LENGTH_LONG).show()

@@ -29,6 +29,15 @@
     <string name="passwords_mismatch">Les mots de passe entrés ne sont pas identiques</string>
     <string name="password_too_short">Veuillez entrer un mot de passe contenant plus de 6 caractères</string>
 
+    <string name="matiere">Matière</string>
+    <string name="date">Date</string>
+    <string name="duration">Durée</string>
+    <string name="address">Adresse</string>
+    <string name="price">Prix</string>
+    <string name="name">Nom</string>
+
+    <string name="filter">Filtrer</string>
+
     <string name="or">ou</string>
     <string name="title_activity_last_step_offer">LastStepOfferActivity</string>
 
@@ -41,4 +50,7 @@
 
     <string name="student">Étudiant</string>
     <string name="teacher">Enseignant</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_entry_list">Entries</string>
+    <string name="title_entry_detail">Entry Detail</string>
 </resources>

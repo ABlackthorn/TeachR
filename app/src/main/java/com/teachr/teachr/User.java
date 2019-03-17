@@ -11,7 +11,9 @@ public class User {
     private int type;
     private String avatar;
 
-    public User(){}
+    User() {
+
+    }
 
     public String getId() {
         return id;

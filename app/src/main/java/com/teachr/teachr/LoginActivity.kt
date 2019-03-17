@@ -37,7 +37,7 @@ class LoginActivity : Activity() {
                                 val user = mAuth.getCurrentUser()
                                 Toast.makeText(this@LoginActivity, R.string.authentication_success,
                                         Toast.LENGTH_SHORT).show()
-                                var intent: Intent = Intent(this, ListActivity::class.java)
+                                var intent: Intent = Intent(this, EntryListActivity::class.java)
                                 startActivity(intent)
                             } else {
                                 Log.d("MYERROR", task.exception?.localizedMessage.toString())

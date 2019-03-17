@@ -2,16 +2,23 @@ package com.teachr.teachr;
 
 public class Subject {
 
-    private int id;
+    private String id;
     private String name;
 
-    public Subject(){}
+    Subject() {
 
-    public int getId() {
+    }
+
+    Subject(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
