@@ -27,6 +27,7 @@
     <string name="placeholder_price">Prix</string>
     <string name="placeholder_adress">Adresse</string>
     <string name="placeholder_duration">Durée</string>
+    <string name="placeholder_date">Date</string>
     <string name="title_activity_adress_offer">AdressOfferActivity</string>
     <string name="title_activity_duration_offer">durationOfferActivity</string>
 
