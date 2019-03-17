@@ -13,6 +13,8 @@ public class User {
 
     User() {
 
+    }
+
     public String getId() {
         return id;
     }
@@ -21,11 +23,11 @@ public class User {
         this.id = id;
     }
 
-    public int getFirstname() {
+    public String getFirstname() {
         return firstname;
     }
 
-    public void setFirstname(int firstname) {
+    public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
