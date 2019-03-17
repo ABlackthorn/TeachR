@@ -1,6 +1,9 @@
 package com.teachr.teachr;
 
-public class Entry {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Entry implements Parcelable {
 
     private String id;
     private String date;
@@ -11,6 +14,16 @@ public class Entry {
     private String subject;
     private String user;
     private long type;
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Entry createFromParcel(Parcel in) {
+            return new Entry(in);
+        }
+
+        public Entry[] newArray(int size) {
+            return new Entry[size];
+        }
+    };
 
     public Entry(){}
 
@@ -107,5 +120,53 @@ public class Entry {
 
     public void setType(long type) {
         this.type = type;
+    }
+
+    /**
+     * Parcelable implementation
+     */
+
+    public Entry(Parcel in){
+        this.id = in.readString();
+        this.date = in.readString();
+        this.duration =  in.readLong();
+        this.longitude =  in.readDouble();
+        this.latitude =  in.readDouble();
+        this.price =  in.readLong();
+        this.subject =  in.readString();
+        this.user =  in.readString();
+        this.type = in.readLong();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.date);
+        dest.writeLong(this.duration);
+        dest.writeDouble(this.longitude);
+        dest.writeDouble(this.latitude);
+        dest.writeLong(this.price);
+        dest.writeString(this.subject);
+        dest.writeString(this.user);
+        dest.writeLong(this.type);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", date='" + date + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", price='" + price + '\'' +
+                ", subject='" + subject + '\'' +
+                ", user='" + user + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

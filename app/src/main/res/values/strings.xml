@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">TeachR</string>
+    <string name="google_maps_key">AIzaSyAvHwMXGx06mGfWTn5hWDyNLVFlX-rZtrg</string>
+
 
     <string name="placeholder_username">Identifiant</string>
     <string name="placeholder_password">Mot de passe</string>
@@ -17,6 +19,7 @@
     <string name="login_button">Connexion</string>
     <string name="signup_button">S\'inscrire</string>
     <string name="forgotten_password">Mot de passe oublié</string>
+    <string name="createEntry_button">Proposer le cours</string>
 
     <string name="cancel_button">Annuler</string>
 
@@ -53,4 +56,5 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_entry_list">Entries</string>
     <string name="title_entry_detail">Entry Detail</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

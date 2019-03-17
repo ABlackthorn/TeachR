@@ -135,8 +135,6 @@
         </LinearLayout>
     </ScrollView>
 
-
-
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
@@ -170,4 +168,5 @@
             android:text="@string/cancel_button"
             android:textColor="@color/colorPrimary" />
     </RelativeLayout>
+
 </RelativeLayout>
