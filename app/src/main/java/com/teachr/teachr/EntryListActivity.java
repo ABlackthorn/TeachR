@@ -1,6 +1,5 @@
 package com.teachr.teachr;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,11 +19,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teachr.teachr.models.Entry;
+import com.teachr.teachr.offer.MatiereOfferActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,9 +81,16 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
                 //ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
                 break;
             case R.id.fab:
-                intent = new Intent(this, MatiereOfferActivity.class);
-                startActivity(intent,
-                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                FirebaseAuth mAuth = null;
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if ( currentUser != null ) {
+                    intent = new Intent(this, MatiereOfferActivity.class);
+                    Entry entry = new Entry();
+                    entry.setUser(currentUser.getUid());
+                    intent.putExtra("entry", entry);
+                    startActivity(intent);
+                }
                 // this.addEntry();
                 // this.addSubject();
                 break;
@@ -247,7 +256,7 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
             holder.courseView.setText(mValues.get(position).getSubject());
             holder.addressView.setText(String.format("%1$,.2f", mValues.get(position).getLatitude()));
             holder.durationView.setText(String.format("%d", mValues.get(position).getDuration()));
-            holder.dateView.setText(mValues.get(position).getDate());
+            holder.dateView.setText(mValues.get(position).getDate().toString());
             holder.nameView.setText(mValues.get(position).getUser());
             holder.priceView.setText(String.format("%d", mValues.get(position).getPrice()));
             holder.itemView.setTag(mValues.get(position));

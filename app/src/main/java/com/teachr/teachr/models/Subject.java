@@ -1,19 +1,19 @@
-package com.teachr.teachr;
+package com.teachr.teachr.models;
 
 public class Subject {
 
     private String id;
     private String name;
 
-    Subject() {
+    public Subject() {
 
     }
 
-    Subject(String name) {
+    public Subject(String name) {
         this.name = name;
     }
 
-    Subject(String id, String name) {
+    public Subject(String id, String name) {
         this.id = id;
         this.name = name;
     }

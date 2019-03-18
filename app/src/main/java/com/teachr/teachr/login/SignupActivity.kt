@@ -1,4 +1,4 @@
-package com.teachr.teachr
+package com.teachr.teachr.login
 
 import android.app.Activity
 import android.os.Bundle
@@ -11,9 +11,10 @@ import android.widget.EditText
 import android.widget.Switch
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.auth.FirebaseUser
-
-
+import com.teachr.teachr.EntryListActivity
+import com.teachr.teachr.HomeActivity
+import com.teachr.teachr.R
+import com.teachr.teachr.models.User
 
 
 class SignupActivity : Activity() {

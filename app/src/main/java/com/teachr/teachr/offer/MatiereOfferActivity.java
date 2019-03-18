@@ -1,7 +1,6 @@
-package com.teachr.teachr;
+package com.teachr.teachr.offer;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,24 +12,26 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teachr.teachr.models.Entry;
+import com.teachr.teachr.R;
+import com.teachr.teachr.Utils;
+import com.teachr.teachr.models.Subject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 public class MatiereOfferActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private DatabaseReference _db;
     private ArrayList<Subject> list = new ArrayList<>();
     private ArrayAdapter<Subject> dataAdapter;
-
+    private Entry entry;
 
     ValueEventListener _entryListener = new ValueEventListener() {
         @Override
@@ -49,6 +50,7 @@ public class MatiereOfferActivity extends Activity implements AdapterView.OnItem
         switch (view.getId()){
             case R.id.nextButton:
                 intent = new Intent(this, AddressOfferActivity.class);
+                intent.putExtra("entry", entry);
                 startActivity(intent);
                 break;
         }
@@ -66,7 +68,8 @@ public class MatiereOfferActivity extends Activity implements AdapterView.OnItem
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
 
-
+        Intent myIntent = getIntent();
+        entry = myIntent.getParcelableExtra("entry");
         _db = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseSubject());
 
         _db.orderByKey().addValueEventListener(_entryListener);
@@ -119,8 +122,10 @@ public class MatiereOfferActivity extends Activity implements AdapterView.OnItem
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
 
+        entry.setSubject(list.get(position).getId());
+
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+        Toast.makeText(parent.getContext(), "Selected: " + entry.toString(), Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub

@@ -1,4 +1,4 @@
-package com.teachr.teachr;
+package com.teachr.teachr.models;
 
 public class User {
 
@@ -11,7 +11,7 @@ public class User {
     private int type;
     private String avatar;
 
-    User() {
+    public User() {
 
     }
 

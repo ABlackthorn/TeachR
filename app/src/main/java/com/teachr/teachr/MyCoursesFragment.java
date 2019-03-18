@@ -1,5 +1,6 @@
-package com.teachr.teachr.ui.home;
+package com.teachr.teachr;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,32 +14,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.teachr.teachr.models.Entry;
-import com.teachr.teachr.EntryDetailActivity;
-import com.teachr.teachr.EntryDetailFragment;
-import com.teachr.teachr.R;
-import com.teachr.teachr.Utils;
+
+import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class MyCoursesFragment extends Fragment {
 
-    private HomeViewModel mViewModel;
+    private MyCoursesViewModel mViewModel;
     private FirebaseAuth mAuth;
     private DatabaseReference _db;
     private ArrayList<Entry> list = new ArrayList<Entry>();
 
-    private HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, list);
+    private MyCoursesFragment.SimpleItemRecyclerViewAdapter adapter = new MyCoursesFragment.SimpleItemRecyclerViewAdapter(this, list);
 
     ValueEventListener _entryListener = new ValueEventListener() {
         @Override
@@ -52,21 +54,67 @@ public class HomeFragment extends Fragment {
         }
     };
 
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
+    ChildEventListener _childListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+            Log.d("Test1", "onChildAdded:" + dataSnapshot.getKey());
+
+            // A new comment has been added, add it to the displayed list
+            loadEntryList(dataSnapshot);
+            // ...
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+            Log.d("Test1", "onChildChanged:" + dataSnapshot.getKey());
+
+            // A comment has changed, use the key to determine if we are displaying this
+            // comment and if so displayed the changed comment.
+            Comment newComment = dataSnapshot.getValue(Comment.class);
+            String commentKey = dataSnapshot.getKey();
+
+            // ...
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            Log.d("Test1", "onChildRemoved:" + dataSnapshot.getKey());
+
+            // A comment has changed, use the key to determine if we are displaying this
+            // comment and if so remove it.
+            String commentKey = dataSnapshot.getKey();
+
+            // ...
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            Log.d("Test1", "onChildMoved:" + dataSnapshot.getKey());
+
+            // A comment has changed position, use the key to determine if we are
+            // displaying this comment and if so move it.
+            Comment movedComment = dataSnapshot.getValue(Comment.class);
+            String commentKey = dataSnapshot.getKey();
+
+            // ...
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            Log.w("Test1", "postComments:onCancelled", databaseError.toException());
+        }
+    };
+
+    public static MyCoursesFragment newInstance() {
+        return new MyCoursesFragment();
     }
 
-    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         mAuth = FirebaseAuth.getInstance();
         _db = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseEntry());
-
-        //View view = inflater.inflate(R.layout.home_fragment, container, false);
-
-        return inflater.inflate(R.layout.home_fragment, container, false);
+        return inflater.inflate(R.layout.my_courses_fragment, container, false);
     }
 
     @Override
@@ -78,18 +126,21 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layout = new LinearLayoutManager(getContext());
         listView.setLayoutManager(layout);
 
-        _db.addValueEventListener(_entryListener);
+        Log.d("entry?", this.mAuth.getUid());
+        //Query myTopPostsQuery = _db.child("entry").orderByChild("user").equalTo(this.mAuth.getUid());
+        // myTopPostsQuery.addChildEventListener(this._childListener);
 
-        HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, list);
+        _db.addValueEventListener(this._entryListener);
+        MyCoursesFragment.SimpleItemRecyclerViewAdapter adapter = new MyCoursesFragment.SimpleItemRecyclerViewAdapter(this, list);
         setupRecyclerView(listView);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(MyCoursesViewModel.class);
+        // TODO: Use the ViewModel
     }
-
-
 
     private void loadEntryList(DataSnapshot dataSnapshot) {
 
@@ -103,20 +154,22 @@ public class HomeFragment extends Fragment {
 
             //get current task
             DataSnapshot currentItem = entries.next();
-
             //get current data in a map
             HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
+            Log.d("ok", (String) map.get("user"));
+
             //key will return the Firebase ID
-            Entry entry = new Entry(currentItem.getKey(),
-                    (String) map.get("date"), (long) map.get("duration"),
-                    (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), (String) map.get("subject"),
-                    (String) map.get("user"), (long) map.get("type"));
-            list.add(entry);
+            if ( map.get("user") != null && ( ( (String) map.get("user")).equals(this.mAuth.getUid()))){
+                Entry entry = new Entry(currentItem.getKey(),
+                        (String) map.get("date"), (long) map.get("duration"),
+                        (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), (String) map.get("subject"),
+                        (String) map.get("user"), (long) map.get("type"));
+                list.add(entry);
+            }
         }
 
         //alert adapter that has changed
         this.adapter.notifyDataSetChanged();
-
     }
 
 
@@ -125,9 +178,9 @@ public class HomeFragment extends Fragment {
     }
 
     public static class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<HomeFragment.SimpleItemRecyclerViewAdapter.ViewHolder> {
+            extends RecyclerView.Adapter<MyCoursesFragment.SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final HomeFragment mParentActivity;
+        private final MyCoursesFragment mParentActivity;
         private final List<Entry> mValues;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
@@ -144,21 +197,21 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        SimpleItemRecyclerViewAdapter(HomeFragment parent,
+        SimpleItemRecyclerViewAdapter(MyCoursesFragment parent,
                                       List<Entry> items) {
             mValues = items;
             mParentActivity = parent;
         }
 
         @Override
-        public HomeFragment.SimpleItemRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MyCoursesFragment.SimpleItemRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.entry_list_content, parent, false);
-            return new HomeFragment.SimpleItemRecyclerViewAdapter.ViewHolder(view);
+            return new MyCoursesFragment.SimpleItemRecyclerViewAdapter.ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final HomeFragment.SimpleItemRecyclerViewAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(final MyCoursesFragment.SimpleItemRecyclerViewAdapter.ViewHolder holder, int position) {
             holder.courseView.setText(mValues.get(position).getSubject());
             holder.addressView.setText(String.format("%1$,.2f", mValues.get(position).getLatitude()));
             holder.durationView.setText(String.format("%d", mValues.get(position).getDuration()));
@@ -194,8 +247,5 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-
-
-
 
 }

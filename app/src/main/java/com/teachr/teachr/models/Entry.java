@@ -1,4 +1,4 @@
-package com.teachr.teachr;
+package com.teachr.teachr.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,7 @@ public class Entry implements Parcelable {
     private String id;
     private String date;
     private long duration;
-    private double longitude;
+    private double longitude = 0;
     private double latitude;
     private long price;
     private String subject;
@@ -25,7 +25,9 @@ public class Entry implements Parcelable {
         }
     };
 
-    public Entry(){}
+    public Entry(){
+
+    }
 
     public Entry(String date, long duration, double longitude, double latitude, long price, String subject, String user, long type ){
         this.date = date;
@@ -158,7 +160,7 @@ public class Entry implements Parcelable {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Entry{" +
                 "id='" + id + '\'' +
                 ", date='" + date + '\'' +
                 ", longitude='" + longitude + '\'' +

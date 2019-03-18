@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".PriceOfferActivity">
+    tools:context=".offer.PriceOfferActivity">
 
     <RelativeLayout
         android:id="@+id/header"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="50dp"
-            android:text="Étapes 3/4"
+            android:text="@string/stepThree"
             android:textColor="@color/colorPrimary"
             android:layout_centerHorizontal="true"
             android:textSize="30sp" />
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
-            android:text="Indiquez le prix du cours : "
+            android:text="@string/coursePrice"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimaryDark"
             android:layout_below="@id/step3textView"
@@ -76,7 +76,7 @@
             android:layout_marginTop="70dp"
             android:layout_centerHorizontal="true"
             android:background="@color/colorPrimaryDark"
-            android:text="Suivant"
+            android:text="@string/next"
             android:layout_below="@+id/priceEditText"/>
 
     </RelativeLayout>

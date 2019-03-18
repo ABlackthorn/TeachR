@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".MatiereOfferActivity">
+    tools:context=".offer.MatiereOfferActivity">
 
     <RelativeLayout
         android:id="@+id/header"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Étapes 1/4"
+            android:text="@string/stepOne"
             android:textColor="@color/colorPrimary"
             android:textSize="30sp" />
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
             android:layout_below="@id/Step1textView"
-            android:text="Indiquez le sujet du cours :"
+            android:text="@string/courseSubject"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
@@ -76,6 +76,6 @@
             android:layout_below="@id/spinner"
             android:layout_marginTop="70dp"
             android:background="@color/colorPrimaryDark"
-            android:text="Suivant" />
+            android:text="@string/next" />
     </RelativeLayout>
 </RelativeLayout>

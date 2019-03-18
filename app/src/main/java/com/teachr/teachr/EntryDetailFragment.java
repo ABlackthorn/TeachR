@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.teachr.teachr.dummy.DummyContent;
+import com.teachr.teachr.models.Entry;
 
 /**
  * A fragment representing a single Entry detail screen.
@@ -55,7 +55,7 @@ public class EntryDetailFragment extends Fragment {
         if (entry != null) {
             ((TextView) rootView.findViewById(R.id.name)).setText(entry.getUser());
             ((TextView) rootView.findViewById(R.id.course)).setText(entry.getSubject());
-            ((TextView) rootView.findViewById(R.id.date)).setText(entry.getDate());
+            ((TextView) rootView.findViewById(R.id.date)).setText(entry.getDate().toString());
             ((TextView) rootView.findViewById(R.id.price)).setText(String.format("%d", entry.getPrice()));
             ((TextView) rootView.findViewById(R.id.address)).setText(String.format("%1$,.2f", entry.getLatitude()));
             ((TextView) rootView.findViewById(R.id.duration)).setText(String.format("%d", entry.getDuration()));
