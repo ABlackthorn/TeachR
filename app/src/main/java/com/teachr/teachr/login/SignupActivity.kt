@@ -12,6 +12,7 @@ import android.widget.Switch
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.teachr.teachr.EntryListActivity
+import com.teachr.teachr.HomeActivity
 import com.teachr.teachr.R
 import com.teachr.teachr.models.User
 
