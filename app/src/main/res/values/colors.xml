@@ -8,4 +8,5 @@
     <color name="black">#000000</color>
     <color name="backgroundCard">#FCFFFF</color>
     <color name="bold">#7B5B70</color>
+    <color name="danger">#EF2323</color>
 </resources>
