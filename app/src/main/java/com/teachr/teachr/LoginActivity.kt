@@ -20,8 +20,8 @@ class LoginActivity : Activity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         //getSupportActionBar()?.hide(); // hide the title bar
         //actionBar.hide()
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_login)
         val mAuth:FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -37,7 +37,7 @@ class LoginActivity : Activity() {
                                 val user = mAuth.getCurrentUser()
                                 Toast.makeText(this@LoginActivity, R.string.authentication_success,
                                         Toast.LENGTH_SHORT).show()
-                                var intent: Intent = Intent(this, EntryListActivity::class.java)
+                                var intent: Intent = Intent(this, HomeActivity::class.java)
                                 startActivity(intent)
                             } else {
                                 Log.d("MYERROR", task.exception?.localizedMessage.toString())
