@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +26,7 @@ import com.teachr.teachr.EntryDetailActivity;
 import com.teachr.teachr.EntryDetailFragment;
 import com.teachr.teachr.R;
 import com.teachr.teachr.Utils;
+import com.teachr.teachr.offer.MatiereOfferActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,6 +84,23 @@ public class HomeFragment extends Fragment {
 
         HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, list);
         setupRecyclerView(listView);
+
+        getView().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth mAuth = null;
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if(currentUser != null) {
+                    Intent intent = new Intent(getContext(), MatiereOfferActivity.class);
+                    Entry entry = new Entry();
+                    entry.setUser(currentUser.getUid());
+                    intent.putExtra("entry", entry);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
