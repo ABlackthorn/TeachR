@@ -23,10 +23,10 @@ public class HomeActivity extends FragmentActivity {
           //      WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.home_activity);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, ProfileFragment.newInstance()).commitNow();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, HomeFragment.newInstance()).commitNow();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new MyNavigationItemSelectedListener(this.getBaseContext(), getSupportFragmentManager()));
+        bottomNavigationView.setOnNavigationItemSelectedListener(new MyNavigationItemSelectedListener(getApplicationContext(), getSupportFragmentManager()));
         bottomNavigationView.setSelectedItemId(R.id.navigation_recherche);
 
     }

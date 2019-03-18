@@ -8,13 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <Button
-        android:layout_height="20dp"
-        android:id="@+id/button"
-        android:layout_width="20dp"
-        android:layout_gravity="top|right"
-        android:text="Deconnexion"/>
-
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -30,19 +23,6 @@
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/teachr_logo_extended" />
-
-        <Button
-            android:id="@+id/filterButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/filter_button"
-            android:textColor="@color/white"
-            android:maxWidth="80dp"
-            android:minWidth="80dp"
-            android:text="@string/filter" />
 
     </RelativeLayout>
     <FrameLayout
@@ -71,20 +51,6 @@
             app:itemTextColor="@color/white"
             app:menu="@menu/navigation"/>
     </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="80dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add_black_24dp"
-        app:backgroundTint="@color/colorPrimary"
-        app:rippleColor="@color/black"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 
 

@@ -82,7 +82,7 @@ class SignupActivity : Activity() {
                             if(type) user.type = 0
                             else user.type = 1
                             val database = FirebaseDatabase.getInstance().reference
-                            database.child("users").push().setValue(user)
+                            database.child("users").child(user.id).setValue(user)
 
 //                            database.runTransaction(object : Transaction.Handler {
 //                                override fun doTransaction(mutableData: MutableData): Transaction.Result {
@@ -105,7 +105,7 @@ class SignupActivity : Activity() {
 //                            })
 
 
-                            var intent: Intent = Intent(this, EntryListActivity::class.java)
+                            var intent: Intent = Intent(this, HomeActivity::class.java)
                             startActivity(intent)
                         } else {
                             Toast.makeText(this@SignupActivity, getString(R.string.signup_failed), Toast.LENGTH_LONG).show()
