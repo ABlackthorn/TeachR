@@ -34,7 +34,8 @@ public class LastStepOfferActivity extends Activity implements View.OnClickListe
     private Subject subject;
     // Get a reference to your user
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref;
+    DatabaseReference refSubject;
+    DatabaseReference refUser;
     // Attach a listener to read the data at your profile reference
 
     public void onClick(View view) {
@@ -71,8 +72,8 @@ public class LastStepOfferActivity extends Activity implements View.OnClickListe
         entry = myIntent.getParcelableExtra("entry");
         long date = myIntent.getLongExtra("longDate", 0);
 
-        ref = database.getReference().child("subject").child(entry.getSubject());
-        ref.addValueEventListener(new ValueEventListener() {
+        refSubject = database.getReference().child("subject").child(entry.getSubject());
+        refSubject.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -99,6 +100,33 @@ public class LastStepOfferActivity extends Activity implements View.OnClickListe
             }
 
         });
+
+        refUser = database.getReference().child("users").child(entry.getUser());
+        refUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Iterator<DataSnapshot> entries = dataSnapshot.getChildren().iterator();
+                //Check if current database contains any collection
+                //check if the collection has any task or not
+                while (entries.hasNext()) {
+                    //get current task
+                    DataSnapshot currentItem = entries.next();
+                    Log.d("test3", (String) currentItem.getValue());
+                    if(currentItem.getKey().equals("type")){
+                        entry.setType((Long) currentItem.getValue());
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+
+        });
+
 
         Geocoder geocoder = new Geocoder(this);
 
