@@ -46,7 +46,7 @@ class MyNavigationItemSelectedListener implements BottomNavigationView.OnNavigat
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.navigation_mescours) {
-            Toast.makeText(context, "mescours", Toast.LENGTH_SHORT).show();
+            manager.beginTransaction().replace(R.id.content, MyCoursesFragment.newInstance()).commitNow();
         } else if(item.getItemId() == R.id.navigation_profil) {
             manager.beginTransaction().replace(R.id.content, ProfileFragment.newInstance()).commitNow();
         } else if(item.getItemId() == R.id.navigation_recherche) {
