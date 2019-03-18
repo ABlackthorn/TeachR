@@ -1,4 +1,4 @@
-package com.teachr.teachr;
+package com.teachr.teachr.offer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.EditText;
 import android.widget.Toast;
+
+import com.teachr.teachr.models.Entry;
+import com.teachr.teachr.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

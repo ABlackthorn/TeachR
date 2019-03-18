@@ -1,11 +1,10 @@
-package com.teachr.teachr;
+package com.teachr.teachr.offer;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,11 +17,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
+import com.teachr.teachr.models.Entry;
+import com.teachr.teachr.EntryListActivity;
+import com.teachr.teachr.R;
+import com.teachr.teachr.Utils;
+import com.teachr.teachr.models.Subject;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.teachr.teachr.dummy.DummyContent;
+import com.teachr.teachr.models.Entry;
 
 /**
  * A fragment representing a single Entry detail screen.

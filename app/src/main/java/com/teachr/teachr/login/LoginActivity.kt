@@ -1,14 +1,15 @@
-package com.teachr.teachr
+package com.teachr.teachr.login
 
 import android.app.Activity
 import android.os.Bundle
 import android.view.Window
-import android.view.WindowManager
 import com.google.firebase.auth.FirebaseAuth
 import android.app.ActivityOptions
 import android.content.Intent
 import android.util.Log
 import android.widget.*
+import com.teachr.teachr.HomeActivity
+import com.teachr.teachr.R
 
 
 class LoginActivity : Activity() {

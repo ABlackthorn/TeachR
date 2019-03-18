@@ -1,4 +1,4 @@
-package com.teachr.teachr;
+package com.teachr.teachr.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

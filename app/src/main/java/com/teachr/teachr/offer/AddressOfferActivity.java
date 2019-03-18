@@ -1,6 +1,5 @@
-package com.teachr.teachr;
+package com.teachr.teachr.offer;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +14,8 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.libraries.places.api.Places;
+import com.teachr.teachr.models.Entry;
+import com.teachr.teachr.R;
 
 import java.util.Arrays;
 
@@ -35,7 +36,7 @@ public class AddressOfferActivity extends FragmentActivity implements View.OnCli
                     startActivity(intent);
                 }
                 break;
-                
+
         }
     }
 

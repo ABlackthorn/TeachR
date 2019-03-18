@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_profil.*
 import com.google.firebase.storage.StorageReference
 import android.graphics.drawable.BitmapDrawable
 import com.bumptech.glide.Glide
+import com.teachr.teachr.models.User
 import java.io.ByteArrayOutputStream
 
 class ProfilActivity : Activity() {

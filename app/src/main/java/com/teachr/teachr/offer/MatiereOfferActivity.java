@@ -1,7 +1,6 @@
-package com.teachr.teachr;
+package com.teachr.teachr.offer;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,17 +12,19 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teachr.teachr.models.Entry;
+import com.teachr.teachr.R;
+import com.teachr.teachr.Utils;
+import com.teachr.teachr.models.Subject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 public class MatiereOfferActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 

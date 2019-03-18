@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.teachr.teachr.Entry;
+import com.teachr.teachr.models.Entry;
 import com.teachr.teachr.EntryDetailActivity;
 import com.teachr.teachr.EntryDetailFragment;
 import com.teachr.teachr.R;
