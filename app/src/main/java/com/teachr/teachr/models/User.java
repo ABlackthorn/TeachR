@@ -8,11 +8,22 @@ public class User {
     private String address;
     private String email;
     private String password;
-    private int type;
+    private long type;
     private String avatar;
 
     public User() {
 
+    }
+
+    public User(String id, String firstname, String lastname, String address, String email, String password, long type, String avatar) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.email = email;
+        this.password = password;
+        this.type = type;
+        this.avatar = avatar;
     }
 
     public String getId() {
@@ -63,11 +74,11 @@ public class User {
         this.password = password;
     }
 
-    public int getType() {
+    public long getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(long type) {
         this.type = type;
     }
 

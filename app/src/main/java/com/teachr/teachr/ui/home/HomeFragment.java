@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teachr.teachr.models.Entry;
+import com.teachr.teachr.models.User;
 import com.teachr.teachr.EntryDetailActivity;
 import com.teachr.teachr.EntryDetailFragment;
 import com.teachr.teachr.R;
@@ -37,15 +38,45 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel mViewModel;
     private FirebaseAuth mAuth;
-    private DatabaseReference _db;
-    private ArrayList<Entry> list = new ArrayList<Entry>();
+    private DatabaseReference  _dbEntry;
+    private DatabaseReference _dbSubject;
+    private DatabaseReference _dbUser;
 
-    private HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, list);
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private ArrayList<Entry> listEntry = new ArrayList<>();
+    private HashMap<String, String> listSubject = new HashMap<>();
+    private HashMap<String, User> listUser = new HashMap<>();
+
+    private HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, listEntry);
 
     ValueEventListener _entryListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             loadEntryList(dataSnapshot);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException());
+        }
+    };
+
+    ValueEventListener _subjectListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            loadSubjectList(dataSnapshot);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException());
+        }
+    };
+
+    ValueEventListener _userListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            loadUserList(dataSnapshot);
         }
 
         @Override
@@ -64,8 +95,9 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         mAuth = FirebaseAuth.getInstance();
-        _db = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseEntry());
-
+        _dbSubject = database.getReference().child(Utils.getFirebaseSubject());
+        _dbEntry = database.getReference().child(Utils.getFirebaseEntry());
+        _dbUser = database.getReference().child(Utils.getFirebaseUser());
         //View view = inflater.inflate(R.layout.home_fragment, container, false);
 
         return inflater.inflate(R.layout.home_fragment, container, false);
@@ -80,9 +112,9 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layout = new LinearLayoutManager(getContext());
         listView.setLayoutManager(layout);
 
-        _db.addValueEventListener(_entryListener);
-
-        HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, list);
+        _dbSubject.orderByKey().addValueEventListener(_subjectListener);
+        _dbUser.orderByKey().addValueEventListener(_userListener);
+        HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, listEntry);
         setupRecyclerView(listView);
 
         getView().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
@@ -108,14 +140,13 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-
-
     private void loadEntryList(DataSnapshot dataSnapshot) {
+        Log.d("MainActivity", "loadEntryList");
 
         Iterator<DataSnapshot> entries = dataSnapshot.getChildren().iterator();
         //Check if current database contains any collection
 
-        list.clear();
+        listEntry.clear();
 
         //check if the collection has any task or not
         while (entries.hasNext()) {
@@ -126,11 +157,12 @@ public class HomeFragment extends Fragment {
             //get current data in a map
             HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
             //key will return the Firebase ID
+
             Entry entry = new Entry(currentItem.getKey(),
                     (String) map.get("date"), (long) map.get("duration"),
-                    (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), (String) map.get("subject"),
-                    (String) map.get("user"), (long) map.get("type"));
-            list.add(entry);
+                    (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), listSubject.get(map.get("subject")),
+                    listUser.get(map.get("user")).getFirstname() + ' ' + listUser.get(map.get("user")).getLastname(), (long) map.get("type"));
+            listEntry.add(entry);
         }
 
         //alert adapter that has changed
@@ -138,6 +170,54 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private void loadSubjectList(DataSnapshot dataSnapshot) {
+        Log.d("MainActivity", "loadSubjectList");
+
+        Iterator<DataSnapshot> subjects = dataSnapshot.getChildren().iterator();
+        //Check if current database contains any collection
+
+        listSubject.clear();
+
+        //check if the collection has any task or not
+        while (subjects.hasNext()) {
+
+            //get current task
+            DataSnapshot currentItem = subjects.next();
+
+            //get current data in a map
+            HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
+            //key will return the Firebase ID
+
+            listSubject.put(currentItem.getKey(), (String) map.get("name"));
+        }
+        _dbUser.orderByKey().addValueEventListener(_userListener);
+    }
+
+    private void loadUserList(DataSnapshot dataSnapshot) {
+        Log.d("MainActivity", "loadEntryList");
+
+        Iterator<DataSnapshot> subjects = dataSnapshot.getChildren().iterator();
+        //Check if current database contains any collection
+
+        listUser.clear();
+
+        //check if the collection has any task or not
+        while (subjects.hasNext()) {
+
+            //get current task
+            DataSnapshot currentItem = subjects.next();
+
+            //get current data in a map
+            HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
+            //key will return the Firebase ID
+
+            User user = new User(currentItem.getKey(), (String) map.get("firstname"), (String) map.get("lastname"),
+            (String) map.get("address"), (String) map.get("email"), (String) map.get("password"), (long) map.get("type"), (String) map.get("avatar") );
+
+            listUser.put(currentItem.getKey(), user);
+        }
+        _dbEntry.orderByKey().addValueEventListener(_entryListener);
+    }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(this.adapter);
