@@ -2,6 +2,8 @@ package com.teachr.teachr.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,8 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +27,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.teachr.teachr.models.Entry;
 import com.teachr.teachr.models.User;
 import com.teachr.teachr.EntryDetailActivity;
@@ -228,6 +236,8 @@ public class HomeFragment extends Fragment {
 
         private final HomeFragment mParentActivity;
         private final List<Entry> mValues;
+        private final FirebaseStorage db  = FirebaseStorage.getInstance();
+        private StorageReference storageRef;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -261,10 +271,38 @@ public class HomeFragment extends Fragment {
             holder.courseView.setText(mValues.get(position).getSubject());
             Log.d("adamo", "test" + mValues.get(position));
             holder.addressView.setText(mValues.get(position).getAddress());
-            holder.durationView.setText(String.format("%d", mValues.get(position).getDuration()));
+            holder.durationView.setText(String.format("%d", mValues.get(position).getDuration()) + " heures");
             holder.dateView.setText(mValues.get(position).getDate());
             holder.nameView.setText(mValues.get(position).getUser());
-            holder.priceView.setText(String.format("%d", mValues.get(position).getPrice()));
+            holder.priceView.setText(String.format("%d", mValues.get(position).getPrice()) + "$");
+
+            storageRef = db.getReference().child("profile_pictures").child("profile_" + mValues.get(position).getId());
+            final long ONE_MEGABYTE = 1024 * 1024 * 8;
+            storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    try {
+                        holder.avatar.setVisibility(View.VISIBLE);
+                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                        holder.avatar.setImageBitmap(Bitmap.createScaledBitmap(bmp, 120,
+                                120, false));
+                    }catch(Exception e){}
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    holder.avatar.setImageBitmap(BitmapFactory.decodeResource(holder.itemView.getResources(), R.mipmap.user));
+                    holder.avatar.setVisibility(View.VISIBLE);
+                }
+            }).addOnCanceledListener(new OnCanceledListener() {
+                @Override
+                public void onCanceled() {
+
+                }
+            });
+
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
         }
@@ -281,6 +319,7 @@ public class HomeFragment extends Fragment {
             final TextView dateView;
             final TextView nameView;
             final TextView priceView;
+            final ImageView avatar;
 
             ViewHolder(View view) {
                 super(view);
@@ -291,6 +330,7 @@ public class HomeFragment extends Fragment {
                 dateView = view.findViewById(R.id.date);
                 nameView = view.findViewById(R.id.name);
                 priceView = view.findViewById(R.id.price);
+                avatar = view.findViewById(R.id.avatar);
             }
         }
     }
