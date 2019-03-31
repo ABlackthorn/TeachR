@@ -14,6 +14,7 @@ public class Entry implements Parcelable {
     private String subject;
     private String user;
     private long type;
+    private String address;
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Entry createFromParcel(Parcel in) {
@@ -29,7 +30,7 @@ public class Entry implements Parcelable {
 
     }
 
-    public Entry(String date, long duration, double longitude, double latitude, long price, String subject, String user, long type ){
+    public Entry(String date, long duration, double longitude, double latitude, long price, String subject, String user, long type, String address ){
         this.date = date;
         this.duration = duration;
         this.longitude = longitude;
@@ -38,9 +39,10 @@ public class Entry implements Parcelable {
         this.subject = subject;
         this.user = user;
         this.type = type;
+        this.address = address;
     }
 
-    public Entry(String id, String date, long duration, double longitude, double latitude, long price, String subject, String user, long type ){
+    public Entry(String id, String date, long duration, double longitude, double latitude, long price, String subject, String user, long type, String address ){
         this.id = id;
         this.date = date;
         this.duration = duration;
@@ -50,6 +52,7 @@ public class Entry implements Parcelable {
         this.subject = subject;
         this.user = user;
         this.type = type;
+        this.address = address;
     }
 
     public String getId() {
@@ -124,6 +127,14 @@ public class Entry implements Parcelable {
         this.type = type;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     /**
      * Parcelable implementation
      */
@@ -138,6 +149,7 @@ public class Entry implements Parcelable {
         this.subject =  in.readString();
         this.user =  in.readString();
         this.type = in.readLong();
+        this.address = in.readString();
     }
 
     @Override
@@ -156,6 +168,7 @@ public class Entry implements Parcelable {
         dest.writeString(this.subject);
         dest.writeString(this.user);
         dest.writeLong(this.type);
+        dest.writeString(this.address);
     }
 
     @Override
@@ -169,6 +182,7 @@ public class Entry implements Parcelable {
                 ", subject='" + subject + '\'' +
                 ", user='" + user + '\'' +
                 ", type='" + type + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

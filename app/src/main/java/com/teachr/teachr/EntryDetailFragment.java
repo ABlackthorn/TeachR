@@ -57,7 +57,7 @@ public class EntryDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.course)).setText(entry.getSubject());
             ((TextView) rootView.findViewById(R.id.date)).setText(entry.getDate().toString());
             ((TextView) rootView.findViewById(R.id.price)).setText(String.format("%d", entry.getPrice()));
-            ((TextView) rootView.findViewById(R.id.address)).setText(String.format("%1$,.2f", entry.getLatitude()));
+            ((TextView) rootView.findViewById(R.id.address)).setText(entry.getAddress());
             ((TextView) rootView.findViewById(R.id.duration)).setText(String.format("%d", entry.getDuration()));
         }
 

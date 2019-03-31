@@ -163,7 +163,7 @@ public class MyCoursesFragment extends Fragment {
                 Entry entry = new Entry(currentItem.getKey(),
                         (String) map.get("date"), (long) map.get("duration"),
                         (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), (String) map.get("subject"),
-                        (String) map.get("user"), (long) map.get("type"));
+                        (String) map.get("user"), (long) map.get("type"), (String) map.get("address"));
                 list.add(entry);
             }
         }

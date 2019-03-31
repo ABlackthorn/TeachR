@@ -213,7 +213,7 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
             Entry entry = new Entry(currentItem.getKey(),
                     (String) map.get("date"), (long) map.get("duration"),
                     (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), listSubject.get(map.get("subject")),
-                    (String) map.get("user"), (long) map.get("type"));
+                    (String) map.get("user"), (long) map.get("type"), (String) map.get("address"));
             listEntry.add(entry);
 
         }

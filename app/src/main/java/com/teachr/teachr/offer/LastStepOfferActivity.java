@@ -2,8 +2,6 @@ package com.teachr.teachr.offer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,9 +21,7 @@ import com.teachr.teachr.R;
 import com.teachr.teachr.Utils;
 import com.teachr.teachr.models.Subject;
 
-import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 
 public class LastStepOfferActivity extends Activity implements View.OnClickListener {
 
@@ -112,7 +108,6 @@ public class LastStepOfferActivity extends Activity implements View.OnClickListe
                 while (entries.hasNext()) {
                     //get current task
                     DataSnapshot currentItem = entries.next();
-                    Log.d("test3", (String) currentItem.getValue());
                     if(currentItem.getKey().equals("type")){
                         entry.setType((Long) currentItem.getValue());
                     }
@@ -127,36 +122,13 @@ public class LastStepOfferActivity extends Activity implements View.OnClickListe
 
         });
 
-
-        Geocoder geocoder = new Geocoder(this);
-
-        List<Address> addresses = null;
-        String errorMessage = "";
-        try {
-            addresses = geocoder.getFromLocation(
-                    entry.getLatitude(),
-                    entry.getLongitude(),
-                    // In this sample, get just a single address.
-                    1);
-            Log.d("Adam", addresses.get(0).getAddressLine(0));
-        } catch (IOException ioException) {
-            // Catch network or other I/O problems.
-            Log.e("nop", "service_not_available", ioException);
-        } catch (IllegalArgumentException illegalArgumentException) {
-            // Catch invalid latitude or longitude values.
-            Log.e("nop", "invalid_lat_long_used" + ". " +
-                    "Latitude = " + entry.getLatitude() +
-                    ", Longitude = " +
-                    entry.getLongitude(), illegalArgumentException);
-        }
-
         TextView text = findViewById(R.id.matiere1);
 
         text = findViewById(R.id.duration1);
         text.setText(String.format("%d", entry.getDuration()));
 
         text = findViewById(R.id.address1);
-        text.setText(addresses.get(0).getAddressLine(0));
+        text.setText(entry.getAddress());
 
         text = findViewById(R.id.price1);
         text.setText(String.format("%d", entry.getPrice()));

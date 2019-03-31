@@ -1,6 +1,8 @@
 package com.teachr.teachr.offer;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -17,12 +19,17 @@ import com.google.android.libraries.places.api.Places;
 import com.teachr.teachr.models.Entry;
 import com.teachr.teachr.R;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 
 public class AddressOfferActivity extends FragmentActivity implements View.OnClickListener {
 
     private Entry entry;
+    Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
     public void onClick(View view) {
         Intent intent;
@@ -70,8 +77,31 @@ public class AddressOfferActivity extends FragmentActivity implements View.OnCli
                 this.place = place;
                 // TODO: Get info about the selected place.
                 Log.d("yes we got it", "Place: " + this.place + ", " + place.getId());
+
                 entry.setLatitude(place.getLatLng().latitude);
                 entry.setLongitude(place.getLatLng().longitude);
+
+                List<Address> addresses = null;
+
+                try {
+                    addresses = geocoder.getFromLocation(
+                            entry.getLatitude(),
+                            entry.getLongitude(),
+                            // In this sample, get just a single address.
+                            1);
+                    entry.setAddress(addresses.get(0).getAddressLine(0));
+                    Log.d("adop", "address : " + addresses.get(0));
+                } catch (IOException ioException) {
+                    // Catch network or other I/O problems.
+                    Log.e("error", "problème de connexion", ioException);
+                } catch (IllegalArgumentException illegalArgumentException) {
+                    // Catch invalid latitude or longitude values.
+                    Log.e("error", "mauvaise localisation" + ". " +
+                            "Latitude = " + entry.getLatitude() +
+                            ", Longitude = " +
+                            entry.getLongitude(), illegalArgumentException);
+                }
+
             }
 
             @Override

@@ -161,7 +161,7 @@ public class HomeFragment extends Fragment {
             Entry entry = new Entry(currentItem.getKey(),
                     (String) map.get("date"), (long) map.get("duration"),
                     (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), listSubject.get(map.get("subject")),
-                    listUser.get(map.get("user")).getFirstname() + ' ' + listUser.get(map.get("user")).getLastname(), (long) map.get("type"));
+                    listUser.get(map.get("user")).getFirstname() + ' ' + listUser.get(map.get("user")).getLastname(), (long) map.get("type"), (String) map.get("address"));
             listEntry.add(entry);
         }
 
@@ -259,7 +259,8 @@ public class HomeFragment extends Fragment {
         @Override
         public void onBindViewHolder(final HomeFragment.SimpleItemRecyclerViewAdapter.ViewHolder holder, int position) {
             holder.courseView.setText(mValues.get(position).getSubject());
-            holder.addressView.setText(String.format("%1$,.2f", mValues.get(position).getLatitude()));
+            Log.d("adamo", "test" + mValues.get(position));
+            holder.addressView.setText(mValues.get(position).getAddress());
             holder.durationView.setText(String.format("%d", mValues.get(position).getDuration()));
             holder.dateView.setText(mValues.get(position).getDate());
             holder.nameView.setText(mValues.get(position).getUser());
