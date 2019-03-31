@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:layout_marginBottom="60dp"
-    tools:context=".ProfilActivity">
+    tools:context=".HomeActivity">
 
 
     <ScrollView
@@ -14,14 +14,15 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@id/footer"
-        android:layout_below="@id/header" >
+        android:layout_below="@id/header"
+        android:layout_marginBottom="-2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -29,66 +30,39 @@
                 <RelativeLayout
                     android:id="@+id/profilImageViewProgressBar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
                     <ProgressBar
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="25dp"
+                        android:layout_centerHorizontal="true"
                         android:indeterminate="true" />
                 </RelativeLayout>
+
                 <ImageView
                     android:id="@+id/profilImageView"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="25dp"
-                    android:visibility="gone"/>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@+id/profilImageView"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView10"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp">
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:text="Votre profil"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="36sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5" />
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone" />
 
-                    <ToggleButton
-                        android:id="@+id/toggleButton"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="-20dp"
-                        android:layout_marginTop="-2dp"
-                        style="@style/toggleButton"
-                        android:background="@drawable/ic_toggle_bg"
-                        android:layout_marginRight="10dp"
-                        android:layout_toEndOf="@id/textView6"
-                        android:layout_alignParentTop="true"/>
-
-                    <Button
-                        android:id="@+id/photoButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:background="@drawable/secondary_button"
-                        android:textColor="@color/colorPrimary"
-                        android:text="Nouvelle Photo de profil"
-                        android:layout_below="@id/textView6"/>
-                </RelativeLayout>
+                <ToggleButton
+                    android:id="@+id/toggleButton"
+                    style="@style/toggleButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ic_toggle_bg" />
 
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -108,63 +82,55 @@
                     android:id="@+id/emailProfilEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:ems="10"
-                    android:editable="false"
-                    android:inputType="textEmailAddress"
-                    android:focusable="false"
                     android:clickable="false"
+                    android:editable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:inputType="textEmailAddress"
                     android:padding="20dp"
                     android:text="Email" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    tools:layout_editor_absoluteY="45dp">
+                <EditText
+                    android:id="@+id/firstnameProfilEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="20dp"
+                    android:text="Prénom" />
 
-                    <EditText
-                        android:id="@+id/firstnameProfilEditText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:editable="false"
-                        android:focusable="false"
-                        android:clickable="false"
-                        android:paddingLeft="10dp"
-                        android:inputType="textPersonName"
-                        android:paddingTop="20dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="20dp"
-                        android:text="Prénom"/>
-
-                    <EditText
-                        android:id="@+id/lastnameProfilEditText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:editable="false"
-                        android:focusable="false"
-                        android:clickable="false"
-                        android:inputType="textPersonName"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="20dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="20dp"
-                        android:text="Nom"
-                        tools:layout_editor_absoluteX="196dp"/>
-
-                </LinearLayout>
+                <EditText
+                    android:id="@+id/lastnameProfilEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="20dp"
+                    android:text="Nom"
+                    tools:layout_editor_absoluteX="196dp" />
 
                 <EditText
                     android:id="@+id/addressProfilEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:editable="false"
-                    android:focusable="false"
+                    android:layout_height="match_parent"
                     android:clickable="false"
+                    android:editable="false"
+                    android:ems="10"
+                    android:focusable="false"
                     android:inputType="textPostalAddress"
                     android:padding="20dp"
                     android:text="Adresse"

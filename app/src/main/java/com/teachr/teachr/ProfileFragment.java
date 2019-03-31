@@ -1,8 +1,10 @@
 package com.teachr.teachr;
 
+import android.Manifest;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,7 +12,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -109,8 +114,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        Button profilButton = getActivity().findViewById(R.id.photoButton);
-        profilButton.setOnClickListener(new View.OnClickListener() {
+        ImageView image = (ImageView) getView().findViewById(R.id.profilImageView);
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickFromGallery();
@@ -186,7 +191,7 @@ public class ProfileFragment extends Fragment {
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
                 ImageView image = (ImageView) getView().findViewById(R.id.profilImageView);
-                image.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.teachr_logo));
+                image.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.plus));
                 getView().findViewById(R.id.profilImageViewProgressBar).setVisibility(View.GONE);
                 image.setVisibility(View.VISIBLE);
             }
@@ -265,15 +270,19 @@ public class ProfileFragment extends Fragment {
     }
 
     private void pickFromGallery() {
-        //Create an Intent with action as ACTION_PICK
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        // Launching the Intent
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+        if(ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        } else {
+            //Create an Intent with action as ACTION_PICK
+            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            // Sets the type as image/*. This ensures only components of type image are selected
+            intent.setType("image/*");
+            //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+            String[] mimeTypes = {"image/jpeg", "image/png"};
+            intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+            // Launching the Intent
+            startActivityForResult(intent, GALLERY_REQUEST_CODE);
+        }
     }
 
 }
