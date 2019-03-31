@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teachr.teachr.models.Entry;
+import com.teachr.teachr.models.Subject;
 import com.teachr.teachr.offer.MatiereOfferActivity;
 
 import java.util.ArrayList;
@@ -48,15 +49,31 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
      * device.
      */
     private boolean mTwoPane;
-    private DatabaseReference  _db;
-    private ArrayList<Entry> list = new ArrayList<>();
+    private DatabaseReference  _dbEntry;
+    private DatabaseReference _dbSubject;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    private ArrayList<Entry> listEntry = new ArrayList<>();
+    private HashMap<String, String> listSubject = new HashMap<>();
     FirebaseAuth mAuth;
-    private SimpleItemRecyclerViewAdapter adapter = new SimpleItemRecyclerViewAdapter(this, list, mTwoPane);
+    private SimpleItemRecyclerViewAdapter adapter = new SimpleItemRecyclerViewAdapter(this, listEntry, mTwoPane);
 
     ValueEventListener _entryListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             loadEntryList(dataSnapshot);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException());
+        }
+    };
+
+    ValueEventListener _subjectListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            loadSubjectList(dataSnapshot);
         }
 
         @Override
@@ -130,14 +147,14 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
-
-        _db = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseEntry());
+        _dbSubject = database.getReference().child(Utils.getFirebaseSubject());
+        _dbEntry = database.getReference().child(Utils.getFirebaseEntry());
 
         View recyclerView = findViewById(R.id.entry_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
-        _db.orderByKey().addValueEventListener(_entryListener);
+        _dbSubject.orderByKey().addValueEventListener(_subjectListener);
     }
 /*
     private void addEntry() {
@@ -181,7 +198,7 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
         Iterator<DataSnapshot> entries = dataSnapshot.getChildren().iterator();
         //Check if current database contains any collection
 
-        list.clear();
+        listEntry.clear();
 
         //check if the collection has any task or not
         while (entries.hasNext()) {
@@ -192,16 +209,41 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
             //get current data in a map
             HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
             //key will return the Firebase ID
+
             Entry entry = new Entry(currentItem.getKey(),
                     (String) map.get("date"), (long) map.get("duration"),
-                    (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), (String) map.get("subject"),
+                    (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), listSubject.get(map.get("subject")),
                     (String) map.get("user"), (long) map.get("type"));
-            list.add(entry);
+            listEntry.add(entry);
+
         }
 
         //alert adapter that has changed
         this.adapter.notifyDataSetChanged();
 
+    }
+
+    private void loadSubjectList(DataSnapshot dataSnapshot) {
+        Log.d("MainActivity", "loadEntryList");
+
+        Iterator<DataSnapshot> subjects = dataSnapshot.getChildren().iterator();
+        //Check if current database contains any collection
+
+        listSubject.clear();
+
+        //check if the collection has any task or not
+        while (subjects.hasNext()) {
+
+            //get current task
+            DataSnapshot currentItem = subjects.next();
+
+            //get current data in a map
+            HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
+            //key will return the Firebase ID
+
+            listSubject.put(currentItem.getKey(), (String) map.get("name"));
+        }
+        _dbEntry.orderByKey().addValueEventListener(_entryListener);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
