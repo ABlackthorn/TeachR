@@ -1,25 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/entry_detail_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EntryDetailActivity"
-    tools:ignore="MergeRootFrame">
+    android:id="@+id/entry_detail"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignParentBottom="true">
+        android:id="@+id/entry_detail_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:context=".EntryDetailActivity"
+        tools:ignore="MergeRootFrame">
+    </RelativeLayout>
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
+        android:id="@+id/map_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/entry_detail_container"
+        android:background="@drawable/secondary_button"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="25dp">
+
+        <fragment
             android:id="@+id/map"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".MapsActivity" />
+            tools:context=".MapsActivity"/>
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/primary_button"
+        android:maxWidth="180dp"
+        android:minWidth="180dp"
+        android:maxHeight="50dp"
+        android:text="@string/signup_button"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

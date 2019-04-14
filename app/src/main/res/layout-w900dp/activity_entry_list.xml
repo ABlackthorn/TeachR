@@ -15,19 +15,22 @@
     <!--
     This layout is a two-pane layout for the Entries
     master/detail flow.
-    
+
     -->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:layout_height="20dp"
-            android:id="@+id/button"
-            android:layout_width="20dp"
-            android:layout_gravity="top|right"
-            android:text="Deconnexion"/>
-
+            android:id="@+id/filterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/filter_button"
+            android:textColor="@color/white"
+            android:maxWidth="80dp"
+            android:minWidth="80dp"
+            android:text="@string/filter" />
         <RelativeLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
@@ -44,17 +47,7 @@
                 android:layout_marginBottom="10dp"
                 android:src="@mipmap/teachr_logo_extended" />
 
-            <Button
-                android:id="@+id/filterButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/imageView"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/filter_button"
-                android:textColor="@color/white"
-                android:maxWidth="80dp"
-                android:minWidth="80dp"
-                android:text="@string/filter" />
+
 
         </RelativeLayout>
 

@@ -22,31 +22,5 @@ tools:context=".MyCoursesFragment">
         app:layoutManager="LinearLayoutManager"
         tools:context="."
         tools:listitem="@layout/entry_list_content" />
-    <Button
-        android:id="@+id/filterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/filter_button"
-        android:textColor="@color/white"
-        android:maxWidth="80dp"
-        android:minWidth="80dp"
-        android:text="@string/filter" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="80dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add_black_24dp"
-        app:backgroundTint="@color/colorPrimary"
-        app:rippleColor="@color/black"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 </RelativeLayout>

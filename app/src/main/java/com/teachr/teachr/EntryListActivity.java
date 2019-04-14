@@ -84,23 +84,20 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
 
     public void onClick(View view) {
         Intent intent;
+        FirebaseUser currentUser;
         switch (view.getId()){
-            case R.id.button:
-                //action
-                mAuth.signOut();
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                break;
             case R.id.filterButton:
                 //action
                 //var intent : Intent = Intent(this, ListActivity::class.java);
                 //startActivity(intent,
                 //ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                //fragment.setArguments(arguments);
+                Log.d("taistoi", "taistoi");
                 break;
             case R.id.fab:
-                FirebaseAuth mAuth = null;
+                this.mAuth = null;
                 mAuth = FirebaseAuth.getInstance();
-                FirebaseUser currentUser = mAuth.getCurrentUser();
+                currentUser = mAuth.getCurrentUser();
                 if ( currentUser != null ) {
                     intent = new Intent(this, MatiereOfferActivity.class);
                     Entry entry = new Entry();
@@ -132,11 +129,9 @@ public class EntryListActivity extends Activity implements View.OnClickListener 
         bottomNavigationView.setSelectedItemId(R.id.navigation_recherche);
         mAuth = FirebaseAuth.getInstance();
 
-        Button button = findViewById(R.id.button);
         Button filterButton = findViewById(R.id.filterButton);
         FloatingActionButton fab = findViewById(R.id.fab);
 
-        button.setOnClickListener(this);
         filterButton.setOnClickListener(this);
         fab.setOnClickListener(this);
 

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.teachr.teachr.models.Entry;
 
 /**
@@ -26,6 +25,7 @@ public class EntryDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private Entry entry;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,14 +53,17 @@ public class EntryDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (entry != null) {
+            String[] dates = entry.getDate().split("2019");
             ((TextView) rootView.findViewById(R.id.name)).setText(entry.getUser());
             ((TextView) rootView.findViewById(R.id.course)).setText(entry.getSubject());
-            ((TextView) rootView.findViewById(R.id.date)).setText(entry.getDate().toString());
-            ((TextView) rootView.findViewById(R.id.price)).setText(String.format("%d", entry.getPrice()));
+            ((TextView) rootView.findViewById(R.id.date)).setText(dates[0] + "2019");
+            ((TextView) rootView.findViewById(R.id.hour)).setText(dates[1]);
+            ((TextView) rootView.findViewById(R.id.price)).setText(String.format("%d", entry.getPrice()) + "$");
             ((TextView) rootView.findViewById(R.id.address)).setText(entry.getAddress());
-            ((TextView) rootView.findViewById(R.id.duration)).setText(String.format("%d", entry.getDuration()));
+            ((TextView) rootView.findViewById(R.id.duration)).setText(String.format("%d", entry.getDuration()) + " heures");
         }
 
         return rootView;
     }
+
 }
