@@ -1,11 +1,22 @@
 package com.teachr.teachr;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.teachr.teachr.models.Entry;
 
 /**
@@ -20,6 +31,8 @@ public class EntryDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ENTRY = "entry";
+    private final FirebaseStorage db  = FirebaseStorage.getInstance();
+    private StorageReference storageRef;
 
     /**
      * The dummy content this fragment is presenting.
@@ -49,7 +62,7 @@ public class EntryDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.entry_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.entry_detail, container, false);
 
         // Show the dummy content as text in a TextView.
         if (entry != null) {
@@ -61,6 +74,35 @@ public class EntryDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.price)).setText(String.format("%d", entry.getPrice()) + "$");
             ((TextView) rootView.findViewById(R.id.address)).setText(entry.getAddress());
             ((TextView) rootView.findViewById(R.id.duration)).setText(String.format("%d", entry.getDuration()) + " heures");
+            final ImageView avatar = ((ImageView) rootView.findViewById(R.id.avatar));
+
+            Log.i("FRAGMENT", "onCreateView: " + getArguments().getString("userId"));
+            storageRef = db.getReference().child("profile_pictures").child("profile_" + getArguments().getString("userId"));
+            final long ONE_MEGABYTE = 1024 * 1024 * 8;
+            storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    try {
+                        avatar.setVisibility(View.VISIBLE);
+                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                        avatar.setImageBitmap(Bitmap.createScaledBitmap(bmp, 120,
+                                120, false));
+                    }catch(Exception e){}
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    avatar.setImageBitmap(BitmapFactory.decodeResource(rootView.getResources(), R.mipmap.user));
+                    avatar.setVisibility(View.VISIBLE);
+                }
+            }).addOnCanceledListener(new OnCanceledListener() {
+                @Override
+                public void onCanceled() {
+
+                }
+            });
         }
 
         return rootView;

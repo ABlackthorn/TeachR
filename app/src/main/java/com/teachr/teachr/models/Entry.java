@@ -3,7 +3,7 @@ package com.teachr.teachr.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Entry implements Parcelable {
+public class Entry implements Parcelable, Cloneable {
 
     private String id;
     private String date;
@@ -185,4 +185,11 @@ public class Entry implements Parcelable {
                 ", address='" + address + '\'' +
                 '}';
     }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        }catch(Exception e){return null;}
+    }
+
 }
