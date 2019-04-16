@@ -23,15 +23,9 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,9 +44,7 @@ import com.teachr.teachr.R;
 import com.teachr.teachr.Utils;
 import com.teachr.teachr.offer.MatiereOfferActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -193,62 +185,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         geocoder = new Geocoder(getContext(), Locale.getDefault());
-
-
-        // Initialize Places.
-        if (!Places.isInitialized()) {
-            Places.initialize(getActivity(), "AIzaSyBy5wzih3SDrAiC2D9SjbbGjrmmE0R32DY");
-        }
-
-// Create a new Places client instance.
-        PlacesClient placesClient = Places.createClient(getContext());
-
-        // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getFragmentManager().findFragmentById(R.id.autocomplete_fragment1);
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
-
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            private Place place;
-
-            @Override
-            public void onPlaceSelected(Place place) {
-                this.place = place;
-                // TODO: Get info about the selected place.
-                Log.d("yes we got it", "Place: " + this.place + ", " + place.getId());
-
-                entry.setLatitude(place.getLatLng().latitude);
-                entry.setLongitude(place.getLatLng().longitude);
-
-                List<Address> addresses = null;
-
-                try {
-                    addresses = geocoder.getFromLocation(
-                            entry.getLatitude(),
-                            entry.getLongitude(),
-                            // In this sample, get just a single address.
-                            1);
-                    entry.setAddress(addresses.get(0).getAddressLine(0));
-                    Log.d("adop", "address : " + addresses.get(0));
-                } catch (IOException ioException) {
-                    // Catch network or other I/O problems.
-                    Log.e("error", "problème de connexion", ioException);
-                } catch (IllegalArgumentException illegalArgumentException) {
-                    // Catch invalid latitude or longitude values.
-                    Log.e("error", "mauvaise localisation" + ". " +
-                            "Latitude = " + entry.getLatitude() +
-                            ", Longitude = " +
-                            entry.getLongitude(), illegalArgumentException);
-                }
-
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i("nop", "An error occurred: " + status);
-            }
-        });
     }
 
     private void loadEntryList(DataSnapshot dataSnapshot) {
