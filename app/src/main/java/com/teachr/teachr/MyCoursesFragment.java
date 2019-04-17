@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teachr.teachr.models.Entry;
+import com.teachr.teachr.models.Subject;
+import com.teachr.teachr.models.User;
 
 import org.w3c.dom.Comment;
 
@@ -37,6 +40,10 @@ public class MyCoursesFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference _db;
     private ArrayList<Entry> list = new ArrayList<Entry>();
+    private HashMap<String, String> listSubject = new HashMap<>();
+    private HashMap<String, User> listUser = new HashMap<>();
+    private DatabaseReference _dbSubject;
+    private DatabaseReference _dbUser;
 
     private MyCoursesFragment.SimpleItemRecyclerViewAdapter adapter = new MyCoursesFragment.SimpleItemRecyclerViewAdapter(this, list);
 
@@ -44,6 +51,30 @@ public class MyCoursesFragment extends Fragment {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             loadEntryList(dataSnapshot);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException());
+        }
+    };
+
+    ValueEventListener _subjectListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            loadSubjectList(dataSnapshot);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException());
+        }
+    };
+
+    ValueEventListener _userListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            loadUserList(dataSnapshot);
         }
 
         @Override
@@ -112,6 +143,8 @@ public class MyCoursesFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         _db = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseEntry());
+        _dbSubject = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseSubject());
+        _dbUser = FirebaseDatabase.getInstance().getReference().child(Utils.getFirebaseUser());
         return inflater.inflate(R.layout.my_courses_fragment, container, false);
     }
 
@@ -128,7 +161,8 @@ public class MyCoursesFragment extends Fragment {
         //Query myTopPostsQuery = _db.child("entry").orderByChild("user").equalTo(this.mAuth.getUid());
         // myTopPostsQuery.addChildEventListener(this._childListener);
 
-        _db.addValueEventListener(this._entryListener);
+        _dbSubject.orderByKey().addValueEventListener(_subjectListener);
+        _dbUser.orderByKey().addValueEventListener(_userListener);
         MyCoursesFragment.SimpleItemRecyclerViewAdapter adapter = new MyCoursesFragment.SimpleItemRecyclerViewAdapter(this, list);
         setupRecyclerView(listView);
     }
@@ -160,14 +194,66 @@ public class MyCoursesFragment extends Fragment {
             if ( map.get("user") != null && ( ( (String) map.get("user")).equals(this.mAuth.getUid()))){
                 Entry entry = new Entry(currentItem.getKey(),
                         (String) map.get("date"), (long) map.get("duration"),
-                        (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), (String) map.get("subject"),
-                        (String) map.get("user"), (long) map.get("type"), (String) map.get("address"));
+                        (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), listSubject.get(map.get("subject")),
+                        "Amine" + ' ' + "Baidada", (long) map.get("type"), (String) map.get("address"));
                 list.add(entry);
             }
         }
 
         //alert adapter that has changed
         this.adapter.notifyDataSetChanged();
+    }
+
+
+    private void loadSubjectList(DataSnapshot dataSnapshot) {
+        Log.d("MainActivity", "loadSubjectList");
+
+        Iterator<DataSnapshot> subjects = dataSnapshot.getChildren().iterator();
+        //Check if current database contains any collection
+
+        listSubject.clear();
+
+        //check if the collection has any task or not
+        while (subjects.hasNext()) {
+
+            //get current task
+            DataSnapshot currentItem = subjects.next();
+
+            //get current data in a map
+            HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
+            //key will return the Firebase ID
+
+            listSubject.put(currentItem.getKey(), (String) map.get("name"));
+            Subject subject = new Subject(currentItem.getKey(), (String) map.get("name"));
+
+        }
+        _dbUser.orderByKey().addValueEventListener(_userListener);
+    }
+
+    private void loadUserList(DataSnapshot dataSnapshot) {
+        Log.d("MainActivity", "loadEntryList");
+
+        Iterator<DataSnapshot> subjects = dataSnapshot.getChildren().iterator();
+        //Check if current database contains any collection
+
+        listUser.clear();
+
+        //check if the collection has any task or not
+        while (subjects.hasNext()) {
+
+            //get current task
+            DataSnapshot currentItem = subjects.next();
+
+            //get current data in a map
+            HashMap<String, Object> map = (HashMap<String, Object>) currentItem.getValue();
+            //key will return the Firebase ID
+
+            User user = new User(currentItem.getKey(), (String) map.get("firstname"), (String) map.get("lastname"),
+                    (String) map.get("address"), (String) map.get("email"), (String) map.get("password"), (long) map.get("type"), (String) map.get("avatar") );
+
+            listUser.put(currentItem.getKey(), user);
+        }
+        _db.orderByKey().addValueEventListener(_entryListener);
     }
 
 

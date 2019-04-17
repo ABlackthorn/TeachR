@@ -123,9 +123,6 @@ public class MatiereOfferActivity extends Activity implements AdapterView.OnItem
         String item = parent.getItemAtPosition(position).toString();
 
         entry.setSubject(list.get(position).getId());
-
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + entry.toString(), Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
