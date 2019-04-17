@@ -63,11 +63,10 @@ public class EntryDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.entry_detail, container, false);
-
         // Show the dummy content as text in a TextView.
         if (entry != null) {
             String[] dates = entry.getDate().split("2019");
-            ((TextView) rootView.findViewById(R.id.name)).setText(entry.getUser());
+            ((TextView) rootView.findViewById(R.id.name)).setText(getActivity().getIntent().getStringExtra("username"));
             ((TextView) rootView.findViewById(R.id.course)).setText(entry.getSubject());
             ((TextView) rootView.findViewById(R.id.date)).setText(dates[0] + "2019");
             ((TextView) rootView.findViewById(R.id.hour)).setText(dates[1]);
@@ -76,8 +75,7 @@ public class EntryDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.duration)).setText(String.format("%d", entry.getDuration()) + " heures");
             final ImageView avatar = ((ImageView) rootView.findViewById(R.id.avatar));
 
-            Log.i("FRAGMENT", "onCreateView: " + getArguments().getString("userId"));
-            storageRef = db.getReference().child("profile_pictures").child("profile_" + getArguments().getString("userId"));
+            storageRef = db.getReference().child("profile_pictures").child("profile_" + entry.getUser());
             final long ONE_MEGABYTE = 1024 * 1024 * 8;
             storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override

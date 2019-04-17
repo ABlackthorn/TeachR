@@ -14,6 +14,7 @@ public class Entry implements Parcelable, Cloneable {
     private String subject;
     private String user;
     private long type;
+    private String username;
     private String address;
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
@@ -134,6 +135,10 @@ public class Entry implements Parcelable, Cloneable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public void setUsername(String username){this.username = username;}
+
+    public String getUsername(){return this.username;}
 
     /**
      * Parcelable implementation

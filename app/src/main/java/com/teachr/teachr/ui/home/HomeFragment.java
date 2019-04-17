@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -275,6 +276,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     (String) map.get("date"), (long) map.get("duration"),
                     (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), listSubject.get(map.get("subject")),
                     (String)map.get("user"), (long) map.get("type"), (String) map.get("address"));
+            if(listUser.get(map.get("user")) != null)
+                entry.setUsername(listUser.get(map.get("user")).getFirstname() + " " + listUser.get(map.get("user")).getLastname());
             listEntry.add(entry);
         }
 
@@ -331,7 +334,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             (String) map.get("address"), (String) map.get("email"), (long) map.get("type"));
 
             listUser.put(currentItem.getKey(), user);
+
         }
+
+        adapter.notifyDataSetChanged();
+        RecyclerView listView = getView().findViewById(R.id.entry_list);
+//        setupRecyclerView(listView);
+
         _dbEntry.orderByKey().addValueEventListener(_entryListener);
     }
 
@@ -366,15 +375,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             public void onClick(View view) {
                 Entry item = (Entry) view.getTag();
 
-                String userId = item.getUser();
-
-                item.setUser(listUser.get(item.getUser()).getFirstname() + " " + listUser.get(item.getUser()).getLastname());
 
                 Context context = view.getContext();
                 Intent intent = new Intent(context, EntryDetailActivity.class);
                 intent.putExtra(EntryDetailFragment.ARG_ENTRY, item);
-                Log.i("MOTHER", userId);
-                intent.putExtra("userId", userId);
+                String username = listUser.get(item.getUser()).getFirstname() + " " + listUser.get(item.getUser()).getLastname();
+                intent.putExtra("username", username);
 
                 context.startActivity(intent);
             }
@@ -398,11 +404,11 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         @Override
         public void onBindViewHolder(final HomeFragment.SimpleItemRecyclerViewAdapter.ViewHolder holder, int position) {
             holder.courseView.setText(mValues.get(position).getSubject());
-            Log.d("adamo", "test" + mValues.get(position));
             holder.addressView.setText(mValues.get(position).getAddress());
             holder.durationView.setText(String.format("%d", mValues.get(position).getDuration()) + " heures");
             holder.dateView.setText(mValues.get(position).getDate());
-            holder.nameView.setText(listUser.get(mValues.get(position).getUser()).getFirstname() + " " + listUser.get(mValues.get(position).getUser()).getLastname());
+            holder.nameView.setText(mValues.get(position).getUsername());
+//            holder.nameView.setText(listUser.get(mValues.get(position).getUser()).getFirstname() + " " + listUser.get(mValues.get(position).getUser()).getLastname());
             holder.priceView.setText(String.format("%d", mValues.get(position).getPrice()) + "$");
 
             storageRef = db.getReference().child("profile_pictures").child("profile_" + mValues.get(position).getUser());
