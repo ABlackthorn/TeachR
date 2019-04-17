@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -75,7 +76,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     private ArrayList<Subject> list = new ArrayList<>();
     private HashMap<String, User> listUser = new HashMap<>();
     private ArrayAdapter<Subject> dataAdapter;
-    private HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, listEntry);
+    private HomeFragment.SimpleItemRecyclerViewAdapter adapter;
 
     ValueEventListener _entryListener = new ValueEventListener() {
         @Override
@@ -123,9 +124,11 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                              @Nullable Bundle savedInstanceState) {
 
         mAuth = FirebaseAuth.getInstance();
+        adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, listEntry, listUser);
         _dbSubject = database.getReference().child(Utils.getFirebaseSubject());
         _dbEntry = database.getReference().child(Utils.getFirebaseEntry());
         _dbUser = database.getReference().child(Utils.getFirebaseUser());
+        _dbUser.addValueEventListener(_userListener);
         //View view = inflater.inflate(R.layout.home_fragment, container, false);
         return inflater.inflate(R.layout.home_fragment, container, false);
     }
@@ -144,7 +147,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         listView.setLayoutManager(layout);
         _dbSubject.orderByKey().addValueEventListener(_subjectListener);
         _dbUser.orderByKey().addValueEventListener(_userListener);
-        HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, listEntry);
+        HomeFragment.SimpleItemRecyclerViewAdapter adapter = new HomeFragment.SimpleItemRecyclerViewAdapter(this, listEntry, listUser);
         setupRecyclerView(listView);
 
         dataAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
@@ -205,8 +208,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getFragmentManager().findFragmentById(R.id.autocomplete_fragment1);
-//        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment1);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
 
 
     }
@@ -232,7 +235,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             Entry entry = new Entry(currentItem.getKey(),
                     (String) map.get("date"), (long) map.get("duration"),
                     (double) map.get("latitude"), (double) map.get("longitude"), (long) map.get("price"), listSubject.get(map.get("subject")),
-                    "Amine" + ' ' + "Baidada", (long) map.get("type"), (String) map.get("address"));
+                    (String)map.get("user"), (long) map.get("type"), (String) map.get("address"));
+            if(listUser.get(map.get("user")) != null)
+                entry.setUsername(listUser.get(map.get("user")).getFirstname() + " " + listUser.get(map.get("user")).getLastname());
             listEntry.add(entry);
         }
 
@@ -286,10 +291,16 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             //key will return the Firebase ID
 
             User user = new User(currentItem.getKey(), (String) map.get("firstname"), (String) map.get("lastname"),
-            (String) map.get("address"), (String) map.get("email"), (String) map.get("password"), (long) map.get("type"), (String) map.get("avatar") );
+            (String) map.get("address"), (String) map.get("email"), (long) map.get("type"));
 
             listUser.put(currentItem.getKey(), user);
+
         }
+
+        adapter.notifyDataSetChanged();
+        RecyclerView listView = getView().findViewById(R.id.entry_list);
+//        setupRecyclerView(listView);
+
         _dbEntry.orderByKey().addValueEventListener(_entryListener);
     }
 
@@ -314,6 +325,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<HomeFragment.SimpleItemRecyclerViewAdapter.ViewHolder> {
 
+        private HashMap<String, User> listUser;
         private final HomeFragment mParentActivity;
         private final List<Entry> mValues;
         private final FirebaseStorage db  = FirebaseStorage.getInstance();
@@ -324,19 +336,22 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 Entry item = (Entry) view.getTag();
 
 
-
                 Context context = view.getContext();
                 Intent intent = new Intent(context, EntryDetailActivity.class);
                 intent.putExtra(EntryDetailFragment.ARG_ENTRY, item);
+                String username = listUser.get(item.getUser()).getFirstname() + " " + listUser.get(item.getUser()).getLastname();
+                intent.putExtra("username", username);
 
                 context.startActivity(intent);
             }
         };
 
         SimpleItemRecyclerViewAdapter(HomeFragment parent,
-                                      List<Entry> items) {
+                                      List<Entry> items,
+                                      HashMap<String, User> listUser) {
             mValues = items;
             mParentActivity = parent;
+            this.listUser = listUser;
         }
 
         @Override
@@ -349,14 +364,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         @Override
         public void onBindViewHolder(final HomeFragment.SimpleItemRecyclerViewAdapter.ViewHolder holder, int position) {
             holder.courseView.setText(mValues.get(position).getSubject());
-            Log.d("adamo", "test" + mValues.get(position));
             holder.addressView.setText(mValues.get(position).getAddress());
             holder.durationView.setText(String.format("%d", mValues.get(position).getDuration()) + " heures");
             holder.dateView.setText(mValues.get(position).getDate());
-            holder.nameView.setText(mValues.get(position).getUser());
+            holder.nameView.setText(mValues.get(position).getUsername());
+//            holder.nameView.setText(listUser.get(mValues.get(position).getUser()).getFirstname() + " " + listUser.get(mValues.get(position).getUser()).getLastname());
             holder.priceView.setText(String.format("%d", mValues.get(position).getPrice()) + "$");
 
-            storageRef = db.getReference().child("profile_pictures").child("profile_" + mValues.get(position).getId());
+            storageRef = db.getReference().child("profile_pictures").child("profile_" + mValues.get(position).getUser());
             final long ONE_MEGABYTE = 1024 * 1024 * 8;
             storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override

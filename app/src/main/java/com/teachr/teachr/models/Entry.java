@@ -3,7 +3,7 @@ package com.teachr.teachr.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Entry implements Parcelable {
+public class Entry implements Parcelable, Cloneable {
 
     private String id;
     private String date;
@@ -14,6 +14,7 @@ public class Entry implements Parcelable {
     private String subject;
     private String user;
     private long type;
+    private String username;
     private String address;
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
@@ -135,6 +136,10 @@ public class Entry implements Parcelable {
         this.address = address;
     }
 
+    public void setUsername(String username){this.username = username;}
+
+    public String getUsername(){return this.username;}
+
     /**
      * Parcelable implementation
      */
@@ -185,4 +190,11 @@ public class Entry implements Parcelable {
                 ", address='" + address + '\'' +
                 '}';
     }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        }catch(Exception e){return null;}
+    }
+
 }

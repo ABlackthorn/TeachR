@@ -76,7 +76,6 @@ class SignupActivity : Activity() {
                             var user: User = User()
                             user.id = Fuser?.uid
                             user.email = email
-                            user.password = password
                             user.firstname = firstname
                             user.lastname = lastname
                             user.address = address

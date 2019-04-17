@@ -1,6 +1,6 @@
 package com.teachr.teachr.models;
 
-public class Subject {
+public class Subject implements Cloneable{
 
     private String id;
     private String name;
@@ -37,5 +37,11 @@ public class Subject {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        }catch(Exception e){return null;}
     }
 }

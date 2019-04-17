@@ -1,29 +1,25 @@
 package com.teachr.teachr.models;
 
-public class User {
+public class User implements Cloneable {
 
     private String id;
     private String firstname;
     private String lastname;
     private String address;
     private String email;
-    private String password;
     private long type;
-    private String avatar;
 
     public User() {
 
     }
 
-    public User(String id, String firstname, String lastname, String address, String email, String password, long type, String avatar) {
+    public User(String id, String firstname, String lastname, String address, String email, long type) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
         this.email = email;
-        this.password = password;
         this.type = type;
-        this.avatar = avatar;
     }
 
     public String getId() {
@@ -66,14 +62,6 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public long getType() {
         return type;
     }
@@ -82,11 +70,9 @@ public class User {
         this.type = type;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public Object clone() {
+        try {
+            return super.clone();
+        }catch(Exception e){return null;}
     }
 }
