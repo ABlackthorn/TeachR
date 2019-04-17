@@ -51,6 +51,14 @@
                     android:layout_centerHorizontal="true"
                     android:visibility="gone" />
 
+                <Button
+                    android:id="@+id/buttonCapture"
+                    android:text="Prendre une photo"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profilImageView"/>
+
                 <ToggleButton
                     android:id="@+id/toggleButton"
                     style="@style/toggleButton"

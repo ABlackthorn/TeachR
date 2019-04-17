@@ -3,18 +3,23 @@ package com.teachr.teachr;
 import android.Manifest;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
@@ -46,18 +51,24 @@ import com.google.firebase.storage.UploadTask;
 import com.teachr.teachr.models.User;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 public class ProfileFragment extends Fragment {
 
+    private static final int PERMISSION_CODE = 1000;
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private ImageView profilImageView;
-
-
     private static final int GALLERY_REQUEST_CODE = 1;
-
     private ProfileViewModel mViewModel;
-
+    private Button buttonCapture;
+    private Uri image_uri;
+    private static final int IMAGE_CAPTURE_CODE = 1001;
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
     }
@@ -73,6 +84,29 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profilImageView = (ImageView)getActivity().findViewById(R.id.profilImageView);
+        buttonCapture = getActivity().findViewById(R.id.buttonCapture);
+
+        buttonCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Log.d("Moco", "1");
+                    if(ContextCompat.checkSelfPermission(getContext(),Manifest.permission.CAMERA)
+                            != PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(getContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        Log.d("Moco", "1.1");
+                        String[] permission = {Manifest.permission.CAMERA
+                                , Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permission, PERMISSION_CODE);
+                    } else {
+                        //permission already granted
+                        Log.d("Moco", "1.2");
+                        openCamera();
+                    }
+            }
+        });
+
+
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
@@ -209,6 +243,9 @@ public class ProfileFragment extends Fragment {
             if(requestCode == ProfileFragment.GALLERY_REQUEST_CODE) {
                 Uri selectedImage = data.getData();
                 profilImageView.setImageURI(selectedImage);
+            } else if (requestCode == ProfileFragment.IMAGE_CAPTURE_CODE) {
+                //set the image captured to our ImageView
+                profilImageView.setImageURI(image_uri);
             }
         }
 
@@ -282,6 +319,33 @@ public class ProfileFragment extends Fragment {
             intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
             // Launching the Intent
             startActivityForResult(intent, GALLERY_REQUEST_CODE);
+        }
+    }
+
+    private void openCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "Nouvelles photos");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "De la caméra");
+        image_uri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
+    }
+
+    //Handling permissions
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults ) {
+        //this method is called, when user presses Allow or Deny from Permission Request Popup
+        switch (requestCode) {
+            case PERMISSION_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permissions ok
+                    openCamera();
+                } else {
+                    Toast.makeText(getContext(), "Permissions non autorisées",Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 

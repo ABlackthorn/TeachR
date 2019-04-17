@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teachr.teachr.HomeActivity;
 import com.teachr.teachr.models.Entry;
 import com.teachr.teachr.EntryListActivity;
 import com.teachr.teachr.R;
@@ -40,7 +41,7 @@ public class LastStepOfferActivity extends Activity implements View.OnClickListe
             case R.id.nextButton5:
                 Log.d("stringos", entry.toString());
                 addEntry();
-                intent = new Intent(this, EntryListActivity.class);
+                intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -54,7 +55,7 @@ public class LastStepOfferActivity extends Activity implements View.OnClickListe
 
         //Set the values for new task in the firebase using the footer form
         newEntry.setValue(entry);
-        Toast.makeText(this, "Task added to the list successfully" + entry.getId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Votre cours a été ajouté avec succès.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

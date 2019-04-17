@@ -211,47 +211,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment1);
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
 
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            private Place place;
 
-            @Override
-            public void onPlaceSelected(Place place) {
-                this.place = place;
-                // TODO: Get info about the selected place.
-                Log.d("yes we got it", "Place: " + this.place + ", " + place.getId());
-
-                entry.setLatitude(place.getLatLng().latitude);
-                entry.setLongitude(place.getLatLng().longitude);
-
-                List<Address> addresses = null;
-
-                try {
-                    addresses = geocoder.getFromLocation(
-                            entry.getLatitude(),
-                            entry.getLongitude(),
-                            // In this sample, get just a single address.
-                            1);
-                    entry.setAddress(addresses.get(0).getAddressLine(0));
-                    Log.d("adop", "address : " + addresses.get(0));
-                } catch (IOException ioException) {
-                    // Catch network or other I/O problems.
-                    Log.e("error", "problème de connexion", ioException);
-                } catch (IllegalArgumentException illegalArgumentException) {
-                    // Catch invalid latitude or longitude values.
-                    Log.e("error", "mauvaise localisation" + ". " +
-                            "Latitude = " + entry.getLatitude() +
-                            ", Longitude = " +
-                            entry.getLongitude(), illegalArgumentException);
-                }
-
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i("nop", "An error occurred: " + status);
-            }
-        });
     }
 
     private void loadEntryList(DataSnapshot dataSnapshot) {
